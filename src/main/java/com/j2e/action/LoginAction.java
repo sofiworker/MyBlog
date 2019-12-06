@@ -1,9 +1,9 @@
-package com.j2e;
+package com.j2e.action;
 
+import com.j2e.entities.UserBean;
 import com.opensymphony.xwork2.ActionSupport;
 import org.apache.struts2.convention.annotation.Action;
 import org.apache.struts2.convention.annotation.Result;
-import org.apache.struts2.convention.annotation.Results;
 
 /**
  * @author sofiworker
@@ -12,12 +12,22 @@ import org.apache.struts2.convention.annotation.Results;
  * @description 登录action
  */
 
-@Action
-@Result(location = "/login.jsp")
+@Action("login")
+@Result(location = "")
 public class LoginAction extends ActionSupport {
+
+    private UserBean userBean;
 
     @Override
     public String execute() throws Exception {
         return SUCCESS;
+    }
+
+    public UserBean getUserBean() {
+        return userBean;
+    }
+
+    public void setUserBean(UserBean userBean) {
+        this.userBean = userBean;
     }
 }

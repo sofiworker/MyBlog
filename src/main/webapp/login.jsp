@@ -11,6 +11,5 @@
     <title>Login</title>
 </head>
 <body>
-<s:property value="str"/>
 </body>
 </html>

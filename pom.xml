@@ -10,7 +10,6 @@
   <packaging>war</packaging>
 
   <name>MyBlog Maven Webapp</name>
-  <!-- FIXME change it to the project's website -->
   <url>http://www.example.com</url>
 
   <properties>
@@ -88,6 +87,18 @@
       <groupId>org.springframework</groupId>
       <artifactId>spring-orm</artifactId>
       <version>4.3.20.RELEASE</version>
+    </dependency>
+    <!-- Java的工具库-->
+    <dependency>
+      <groupId>cn.hutool</groupId>
+      <artifactId>hutool-all</artifactId>
+      <version>5.0.7</version>
+    </dependency>
+    <!-- spring切面 -->
+    <dependency>
+      <groupId>org.aspectj</groupId>
+      <artifactId>aspectjweaver</artifactId>
+      <version>1.8.13</version>
     </dependency>
   </dependencies>
 

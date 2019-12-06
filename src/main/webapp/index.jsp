@@ -6,6 +6,7 @@
 </head>
 <body>
 你好这里是根目录！
-<a href="login.jsp">点击登录</a>
+<br>
+<a href="login.jsp">请登录</a>
 </body>
 </html>
