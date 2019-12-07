@@ -8,5 +8,6 @@
 你好这里是根目录！
 <br>
 <a href="login.jsp">请登录</a>
+<a href="register.jsp">请注册</a>
 </body>
 </html>

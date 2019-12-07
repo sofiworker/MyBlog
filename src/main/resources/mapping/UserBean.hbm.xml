@@ -6,13 +6,16 @@
 
     <class name="com.j2e.entities.UserBean" table="user" schema="myblog">
         <id name="uid">
-            <column name="uid" sql-type="int(11)"/>
+            <column name="uid" sql-type="char(11)" length="11"/>
         </id>
         <property name="username">
-            <column name="username" sql-type="varchar(255)"/>
+            <column name="username" sql-type="varchar(15)" length="15"/>
         </property>
         <property name="password">
-            <column name="password" sql-type="varchar(255)"/>
+            <column name="password" sql-type="varchar(16)" length="16"/>
+        </property>
+        <property name="type">
+            <column name="type" sql-type="int(1)"/>
         </property>
     </class>
 </hibernate-mapping>
