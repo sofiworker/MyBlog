@@ -19,4 +19,5 @@ public class Constants {
     public static final String USER_NOT_EXIST_PLS_REGISTER = "用户不存在，请先注册！";
     public static final String USER_EXIST = "用户已存在！";
     public static final String PLS_INPUT_RIGHT_FORMAT = "请输入正确格式的账号/密码！";
+    public static final String PLS_INPUT_RIGHT_NAME_FORMAT = "请输入正确格式的账号/昵称/密码！";
 }

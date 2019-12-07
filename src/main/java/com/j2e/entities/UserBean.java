@@ -1,6 +1,7 @@
 package com.j2e.entities;
 
 import javax.persistence.*;
+import java.io.Serializable;
 
 /**
  * @author sofiworker
@@ -10,7 +11,8 @@ import javax.persistence.*;
  */
 @Entity
 @Table(name = "user", schema = "myblog", catalog = "")
-public class UserBean {
+public class UserBean implements Serializable {
+    private static final long serialVersionUID = -8712420936914444270L;
     private String uid;
     private String username;
     private String password;
@@ -58,15 +60,27 @@ public class UserBean {
 
     @Override
     public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
+        if (this == o) {
+            return true;
+        }
+        if (o == null || getClass() != o.getClass()) {
+            return false;
+        }
 
         UserBean userBean = (UserBean) o;
 
-        if (type != userBean.type) return false;
-        if (uid != null ? !uid.equals(userBean.uid) : userBean.uid != null) return false;
-        if (username != null ? !username.equals(userBean.username) : userBean.username != null) return false;
-        if (password != null ? !password.equals(userBean.password) : userBean.password != null) return false;
+        if (type != userBean.type) {
+            return false;
+        }
+        if (uid != null ? !uid.equals(userBean.uid) : userBean.uid != null) {
+            return false;
+        }
+        if (username != null ? !username.equals(userBean.username) : userBean.username != null) {
+            return false;
+        }
+        if (password != null ? !password.equals(userBean.password) : userBean.password != null) {
+            return false;
+        }
 
         return true;
     }

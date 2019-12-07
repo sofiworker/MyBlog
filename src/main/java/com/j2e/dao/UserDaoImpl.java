@@ -41,4 +41,9 @@ public class UserDaoImpl implements UserDao {
             return null;
         }
     }
+
+    @Override
+    public boolean saveUser(UserBean user) {
+        return mTemplate.save(user) != null;
+    }
 }

@@ -16,6 +16,7 @@
         <s:property value="#registerFail"/>
     </div>
     <s:textfield name="userBean.uid" label="账号"/>
+    <s:textfield name="userBean.username" label="昵称"/>
     <s:password name="userBean.password" label="密码"/>
     <s:submit name="登录"/>
 </s:form>

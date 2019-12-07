@@ -3,6 +3,7 @@ package com.j2e.action;
 import com.j2e.Constants;
 import com.j2e.entities.UserBean;
 import com.j2e.service.LoginService;
+import com.j2e.service.RegisterService;
 import com.opensymphony.xwork2.ActionContext;
 import com.opensymphony.xwork2.ActionSupport;
 import org.apache.struts2.convention.annotation.Action;
@@ -17,17 +18,16 @@ import org.springframework.beans.factory.annotation.Autowired;
  * @description 用户action，包括登录与注册
  */
 @Results({@Result(name = "login", type = "redirect", location = "/index.jsp"),
-        @Result(name = "register", location = "/login.jsp"),
-        @Result(name = "loginFail", location = "/login.jsp"),
-        @Result(name = "registerFail", location = "/register.jsp")})
-public class UserAction extends ActionSupport{
+        @Result(name = "loginFail", location = "/login.jsp")})
+public class LoginAction extends ActionSupport{
 
+    private static final long serialVersionUID = 5452894593134968948L;
     private UserBean userBean;
-    private LoginService mService;
+    private LoginService mLogin;
 
     @Autowired
-    public UserAction(LoginService service){
-        this.mService = service;
+    public LoginAction(LoginService service){
+        this.mLogin = service;
     }
 
     public void setUserBean(UserBean userBean) {
@@ -40,10 +40,10 @@ public class UserAction extends ActionSupport{
 
     @Action("login")
     public String loginAction(){
-        if (!validateInput()){
+        if (validateInput()){
             String uid = userBean.getUid();
-            if (mService.findUserExist(uid)) {
-                UserBean user = mService.loginSuccess(userBean);
+            if (mLogin.findUserExist(uid)) {
+                UserBean user = mLogin.loginSuccess(userBean);
                 if (user != null) {
                     ActionContext.getContext().getSession().put(Constants.LOGIN_USER, user);
                     return "login";
@@ -61,27 +61,11 @@ public class UserAction extends ActionSupport{
         }
     }
 
-    @Action("register")
-    public String registerAction(){
-        if (!validateInput()){
-            String uid = userBean.getUid();
-            if (mService.findUserExist(uid)) {
-                ActionContext.getContext().put(Constants.REGISTER_FAIL, Constants.USER_EXIST);
-                return "registerFail";
-            }else {
-                return "register";
-            }
-        }else {
-            ActionContext.getContext().put(Constants.REGISTER_FAIL, Constants.PLS_INPUT_RIGHT_FORMAT);
-            return "registerFail";
-        }
-    }
-
     public boolean validateInput() {
         int accountLen = 11;
         int passwordMiniLen = 8;
         int passwordMaxLen = 16;
-        return userBean.getUid().length() != accountLen ||
-                userBean.getPassword().length() < passwordMiniLen || userBean.getPassword().length() > passwordMaxLen;
+        return userBean.getUid().length() == accountLen &&
+                userBean.getPassword().length() >= passwordMiniLen && userBean.getPassword().length() <= passwordMaxLen;
     }
 }
