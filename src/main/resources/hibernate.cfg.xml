@@ -10,5 +10,17 @@
         <!-- 是否显示及格式化 SQL -->
         <property name="hibernate.show_sql">true</property>
         <property name="hibernate.format_sql">true</property>
+        <property name="connection.url">jdbc:mysql://47.97.220.6:3306/myblog</property>
+        <property name="connection.driver_class">com.mysql.cj.jdbc.Driver</property>
+        <mapping resource="com/j2e/entities/CommentBean.hbm.xml"/>
+        <mapping class="com.j2e.entities.CommentBean"/>
+        <mapping resource="com/j2e/entities/EssayBean.hbm.xml"/>
+        <mapping class="com.j2e.entities.EssayBean"/>
+        <mapping resource="com/j2e/entities/TagBean.hbm.xml"/>
+        <mapping class="com.j2e.entities.TagBean"/>
+        <mapping resource="com/j2e/entities/TagEssayBean.hbm.xml"/>
+        <mapping class="com.j2e.entities.TagEssayBean"/>
+        <mapping resource="com/j2e/entities/UserBean.hbm.xml"/>
+        <mapping class="com.j2e.entities.UserBean"/>
     </session-factory>
 </hibernate-configuration>

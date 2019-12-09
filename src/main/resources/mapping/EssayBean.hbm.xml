@@ -1,0 +1,24 @@
+<?xml version='1.0' encoding='utf-8'?>
+<!DOCTYPE hibernate-mapping PUBLIC
+    "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+    "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<hibernate-mapping>
+
+    <class name="com.j2e.entities.EssayBean" table="essay" schema="myblog">
+        <id name="eId">
+            <column name="e_id" sql-type="char(32)" length="32"/>
+        </id>
+        <property name="eTitle">
+            <column name="e_title" sql-type="varchar(255)"/>
+        </property>
+        <property name="eContent">
+            <column name="e_content" sql-type="varchar(255)" not-null="true"/>
+        </property>
+        <property name="eLike">
+            <column name="e_like" sql-type="int(11)" not-null="true"/>
+        </property>
+        <property name="eComment">
+            <column name="e_comment" sql-type="int(255)" not-null="true"/>
+        </property>
+    </class>
+</hibernate-mapping>

@@ -102,6 +102,20 @@
     </dependency>
   </dependencies>
 
+  <repositories>
+    <repository>
+      <id>alimaven</id>
+      <name>Maven Aliyun Mirror</name>
+      <url>http://maven.aliyun.com/nexus/content/repositories/central/</url>
+      <releases>
+        <enabled>true</enabled>
+      </releases>
+      <snapshots>
+        <enabled>false</enabled>
+      </snapshots>
+    </repository>
+  </repositories>
+
   <build>
     <finalName>MyBlog</finalName>
     <pluginManagement><!-- lock down plugins versions to avoid using Maven defaults (may be moved to parent pom) -->

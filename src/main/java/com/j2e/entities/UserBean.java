@@ -2,6 +2,7 @@ package com.j2e.entities;
 
 import javax.persistence.*;
 import java.io.Serializable;
+import java.sql.Timestamp;
 
 /**
  * @author sofiworker
@@ -17,6 +18,7 @@ public class UserBean implements Serializable {
     private String username;
     private String password;
     private int type;
+    private Timestamp createtime;
 
     @Id
     @Column(name = "uid", nullable = false, length = 11)
@@ -92,5 +94,15 @@ public class UserBean implements Serializable {
         result = 31 * result + (password != null ? password.hashCode() : 0);
         result = 31 * result + type;
         return result;
+    }
+
+    @Basic
+    @Column(name = "createtime", nullable = true)
+    public Timestamp getCreatetime() {
+        return createtime;
+    }
+
+    public void setCreatetime(Timestamp createtime) {
+        this.createtime = createtime;
     }
 }
