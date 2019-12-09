@@ -1,19 +1,26 @@
 package com.j2e.action;
 
 import com.opensymphony.xwork2.ActionSupport;
+import org.apache.struts2.convention.annotation.Action;
+import org.apache.struts2.convention.annotation.InterceptorRef;
+import org.apache.struts2.convention.annotation.ParentPackage;
 import org.apache.struts2.convention.annotation.Result;
-import org.apache.struts2.convention.annotation.Results;
 
 /**
  * @author sofiworker
  * @version 1.0.0
- * @date 2019/12/8 22:08
- * @description 个人文章action
+ * @date 2019/12/9 18:11
+ * @description 编写文章的action
  */
-//@Results({@Result()})
-public class EssayAction {
+@Result(name = "edit", location = "/index.jsp")
+@ParentPackage("com.j2e")
+@InterceptorRef("loginInterceptor")
+public class EssayAction extends ActionSupport {
 
     private static final long serialVersionUID = 5646859336197739469L;
 
-//    public String
+    @Action("edit")
+    public String edit(){
+        return "edit";
+    }
 }

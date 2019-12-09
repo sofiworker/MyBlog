@@ -3,9 +3,15 @@
         "-//Apache Software Foundation//DTD Struts Configuration 2.5//EN"
         "http://struts.apache.org/dtds/struts-2.5.dtd">
 <struts>
-
     <constant name="struts.devMode" value="true" />
 
-    <package name="basicstruts2" extends="struts-default">
+    <package name="com.j2e" extends="struts-default">
+        <interceptors>
+            <interceptor name="loginInterceptor" class="com.j2e.interceptor.LoginInterceptor"/>
+        </interceptors>
+
+        <global-results>
+            <result name="noLogin">/login.jsp</result>
+        </global-results>
     </package>
 </struts>

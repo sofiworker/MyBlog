@@ -3,12 +3,9 @@ package com.j2e.action;
 import com.j2e.Constants;
 import com.j2e.entities.UserBean;
 import com.j2e.service.LoginService;
-import com.j2e.service.RegisterService;
 import com.opensymphony.xwork2.ActionContext;
 import com.opensymphony.xwork2.ActionSupport;
-import org.apache.struts2.convention.annotation.Action;
-import org.apache.struts2.convention.annotation.Result;
-import org.apache.struts2.convention.annotation.Results;
+import org.apache.struts2.convention.annotation.*;
 import org.springframework.beans.factory.annotation.Autowired;
 
 /**
@@ -38,7 +35,7 @@ public class LoginAction extends ActionSupport{
         return userBean;
     }
 
-    @Action("login")
+    @Action("/login")
     public String loginAction(){
         if (validateInput()){
             String uid = userBean.getUid();

@@ -1,3 +1,4 @@
+<%@ taglib prefix="s" uri="/struts-tags" %>
 <%--
   Author: sofiworker
   Version: 1.0.0
@@ -19,12 +20,15 @@
 </div>
 <script src="js/jquery.min.js"></script>
 <script src="editormd/editormd.min.js"></script>
-<script type="text/javascript">
-    $(function() {
-        var editor = editormd("test-editor", {
-            path   : "editormd/lib/"
+<s:form action="edit">
+    <script type="text/javascript">
+        $(function() {
+            var editor = editormd("test-editor", {
+                path   : "editormd/lib/"
+            });
         });
-    });
-</script>
+    </script>
+    <input type="submit">
+</s:form>
 </body>
 </html>
