@@ -19,6 +19,8 @@ public class EssayAction extends ActionSupport {
 
     private static final long serialVersionUID = 5646859336197739469L;
 
+//    private String
+
     @Action("edit")
     public String edit(){
         return "edit";
