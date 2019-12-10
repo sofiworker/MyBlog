@@ -39,7 +39,7 @@
                             </div><!--/.form-group -->
                             <div class="signin-footer">
                                 <span><a href="#"></a ></span>
-                                <input type="submit" value="登  录" id="logininput" class="btn signin_btn"  style="font-size: 20px;width:525px">
+                                <input type="button" value="登  录" id="logininput" class="btn signin_btn" onclick="log()"  style="font-size: 20px;width:525px">
                                 <span><a href="#"></a ></span>
                             </div><!--/.signin-footer -->
                         </form><!--/form -->
@@ -65,5 +65,21 @@
         <i class="fa fa-angle-double-up return-to-top" id="scroll-top1" data-toggle="tooltip" data-placement="top" title="" data-original-title="Back to Top" aria-hidden="true"></i>
     </div>
 </footer>
+<script>
+    function log(){
+      console.log('11111111111111111');
+      var js={"userBean":{"uid":"12345678910","password":"12345678"}};
+      $.ajax({url:"http://localhost:8080/login",
+          type:"post",
+          dataType: "json",
+          contentType:"application/json;charset=UTF-8",
+          data:JSON.stringify(js),
+          success:function(data) {
+            console.log(data);
+            console.log(data.data.uid);
+        }})
+
+    }
+</script>
 </body>
 </html>
