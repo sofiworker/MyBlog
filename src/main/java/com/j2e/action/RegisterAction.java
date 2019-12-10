@@ -1,15 +1,12 @@
 package com.j2e.action;
 
 import cn.hutool.core.util.StrUtil;
-import com.j2e.Constants;
 import com.j2e.entities.UserBean;
 import com.j2e.service.RegisterService;
-import com.opensymphony.xwork2.ActionContext;
-import com.opensymphony.xwork2.ActionSupport;
 import org.apache.struts2.convention.annotation.Action;
 import org.apache.struts2.convention.annotation.Result;
-import org.apache.struts2.convention.annotation.Results;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 
 /**
  * @author sofiworker
@@ -17,9 +14,8 @@ import org.springframework.beans.factory.annotation.Autowired;
  * @date 2019/12/7 23:27
  * @description 用户注册Action
  */
-@Results({@Result(name = "register", location = "/login.jsp"),
-        @Result(name = "registerFail", location = "/register.jsp")})
-public class RegisterAction extends ActionSupport {
+@Component
+public class RegisterAction extends BaseAction<UserBean> {
 
     private static final long serialVersionUID = -657959436584257796L;
     private UserBean userBean;
@@ -38,22 +34,29 @@ public class RegisterAction extends ActionSupport {
         this.mService = service;
     }
 
-    @Action("register")
+    @Action(value = "/register", results = {@Result(name = "register", type = "json", params = {"root", "data"}),
+            @Result(name = "registerFail", type = "json", params = {"root", "data"})})
     public String registerAction(){
         if (validateInput()){
             String uid = userBean.getUid();
             if (mService.findUserExist(uid)) {
-                ActionContext.getContext().put(Constants.REGISTER_FAIL, Constants.USER_EXIST);
+                data.setNormalMsg("用户已存在！");
                 return "registerFail";
             }else {
-                if (mService.saveUser(userBean)) {
-                    return "register";
-                }else {
-                    return "registerFail";
-                }
+                return register();
             }
         }else {
-            ActionContext.getContext().put(Constants.REGISTER_FAIL, Constants.PLS_INPUT_RIGHT_NAME_FORMAT);
+            data.setNormalMsg("输入格式出错！");
+            return "registerFail";
+        }
+    }
+
+    private String register(){
+        if (mService.saveUser(userBean)) {
+            data.setNormalMsg("注册成功！");
+            return "register";
+        }else {
+            data.setNormalMsg("注册失败！");
             return "registerFail";
         }
     }

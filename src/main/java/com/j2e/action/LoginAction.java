@@ -4,9 +4,9 @@ import com.j2e.Constants;
 import com.j2e.entities.UserBean;
 import com.j2e.service.LoginService;
 import com.opensymphony.xwork2.ActionContext;
-import com.opensymphony.xwork2.ActionSupport;
 import org.apache.struts2.convention.annotation.*;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 
 /**
  * @author sofiworker
@@ -14,17 +14,16 @@ import org.springframework.beans.factory.annotation.Autowired;
  * @date 2019/12/5 20:40
  * @description 用户action，包括登录与注册
  */
-@Results({@Result(name = "login", type = "redirect", location = "/index.jsp"),
-        @Result(name = "loginFail", location = "/login.jsp")})
-public class LoginAction extends ActionSupport{
+@Component
+public class LoginAction extends BaseAction<UserBean> {
 
     private static final long serialVersionUID = 5452894593134968948L;
     private UserBean userBean;
-    private LoginService mLogin;
+    private LoginService service;
 
     @Autowired
     public LoginAction(LoginService service){
-        this.mLogin = service;
+        this.service = service;
     }
 
     public void setUserBean(UserBean userBean) {
@@ -35,26 +34,33 @@ public class LoginAction extends ActionSupport{
         return userBean;
     }
 
-    @Action("/login")
+    @Action(value = "/login", results = {@Result(type = "json", name = "success", params = {"root","data"}),
+            @Result(type = "json", name = "error", params = {"root", "data"})})
     public String loginAction(){
         if (validateInput()){
             String uid = userBean.getUid();
-            if (mLogin.findUserExist(uid)) {
-                UserBean user = mLogin.loginSuccess(userBean);
-                if (user != null) {
-                    ActionContext.getContext().getSession().put(Constants.LOGIN_USER, user);
-                    return "login";
-                }else {
-                    ActionContext.getContext().put(Constants.LOGIN_FAIL, Constants.CHECK_ACCOUNT_OR_PASSWORD_RIGHT);
-                    return "loginFail";
-                }
+            if (service.findUserExist(uid)) {
+                return login();
             }else {
-                ActionContext.getContext().put(Constants.LOGIN_FAIL, Constants.USER_NOT_EXIST_PLS_REGISTER);
-                return "loginFail";
+                data.setNormalMsg("用户不存在！");
+                return ERROR;
             }
         }else {
-            ActionContext.getContext().put(Constants.LOGIN_FAIL, Constants.PLS_INPUT_RIGHT_FORMAT);
-            return "loginFail";
+            data.setNormalMsg("输入格式问题！");
+            return ERROR;
+        }
+    }
+
+    private String login(){
+        UserBean user = service.loginSuccess(userBean);
+        if (user != null) {
+            user.setPassword(null);
+            data.setData(user);
+            ActionContext.getContext().getSession().put(Constants.LOGIN_USER, user);
+            return SUCCESS;
+        }else {
+            data.setNormalMsg("登录失败！");
+            return ERROR;
         }
     }
 

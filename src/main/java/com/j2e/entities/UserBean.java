@@ -1,5 +1,7 @@
 package com.j2e.entities;
 
+import org.apache.struts2.json.annotations.JSON;
+
 import javax.persistence.*;
 import java.io.Serializable;
 import java.sql.Timestamp;

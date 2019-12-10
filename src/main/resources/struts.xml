@@ -5,13 +5,15 @@
 <struts>
     <constant name="struts.devMode" value="true" />
 
-    <package name="com.j2e" extends="struts-default">
+    <!-- 编码格式 -->
+    <constant name="struts.i18n.encoding" value="UTF-8" />
+
+    <package name="com.j2e" extends="json-default" namespace="/">
         <interceptors>
             <interceptor name="loginInterceptor" class="com.j2e.interceptor.LoginInterceptor"/>
         </interceptors>
-
         <global-results>
-            <result name="noLogin">/login.jsp</result>
+            <result name="noLogin">/json/noLogin.json</result>
         </global-results>
     </package>
 </struts>

@@ -12,16 +12,14 @@ import org.apache.struts2.convention.annotation.Result;
  * @date 2019/12/9 18:11
  * @description 编写文章的action
  */
-@Result(name = "edit", location = "/index.jsp")
-@ParentPackage("com.j2e")
-@InterceptorRef("loginInterceptor")
-public class EssayAction extends ActionSupport {
+public class EssayAction extends BaseAction {
 
     private static final long serialVersionUID = 5646859336197739469L;
 
 //    private String
 
-    @Action("edit")
+    @Action(value = "edit", interceptorRefs = {@InterceptorRef("loginInterceptor")},
+            results ={@Result(name = "edit", type = "json", params = {"root", "data"})})
     public String edit(){
         return "edit";
     }
