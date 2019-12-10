@@ -14,11 +14,20 @@
         <property name="password">
             <column name="password" sql-type="varchar(16)" length="16"/>
         </property>
+        <property name="photo">
+            <column name="photo" sql-type="varchar(255)"/>
+        </property>
+        <property name="gender">
+            <column name="gender" sql-type="varchar(10)" length="10"/>
+        </property>
+        <property name="sign">
+            <column name=" sign" sql-type="varchar(255)"/>
+        </property>
         <property name="type">
             <column name="type" sql-type="int(1)"/>
         </property>
         <property name="createtime">
-            <column name="createtime" sql-type="timestamp" not-null="true"/>
+            <column name="createtime" sql-type="timestamp"/>
         </property>
     </class>
 </hibernate-mapping>

@@ -1,0 +1,18 @@
+<?xml version='1.0' encoding='utf-8'?>
+<!DOCTYPE hibernate-mapping PUBLIC
+    "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+    "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<hibernate-mapping>
+
+    <class name="com.j2e.entities.StoreBean" table="store" schema="myblog">
+        <id name="sId">
+            <column name="s_id" sql-type="int(11)"/>
+        </id>
+        <property name="sUid">
+            <column name="s_uid" sql-type="char(11)" length="11"/>
+        </property>
+        <property name="sEid">
+            <column name="s_eid" sql-type="char(32)" length="32"/>
+        </property>
+    </class>
+</hibernate-mapping>

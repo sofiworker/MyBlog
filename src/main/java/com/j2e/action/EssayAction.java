@@ -18,7 +18,7 @@ public class EssayAction extends BaseAction {
 
 //    private String
 
-    @Action(value = "edit", interceptorRefs = {@InterceptorRef("loginInterceptor")},
+    @Action(value = "/edit", interceptorRefs = {@InterceptorRef("loginInterceptor")},
             results ={@Result(name = "edit", type = "json", params = {"root", "data"})})
     public String edit(){
         return "edit";

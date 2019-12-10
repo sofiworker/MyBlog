@@ -4,7 +4,6 @@ import com.j2e.Constants;
 import com.j2e.entities.UserBean;
 import com.j2e.service.LoginService;
 import com.opensymphony.xwork2.ActionContext;
-import com.opensymphony.xwork2.ModelDriven;
 import org.apache.struts2.convention.annotation.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
