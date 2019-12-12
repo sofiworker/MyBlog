@@ -5,19 +5,12 @@ import com.alibaba.fastjson.JSON;
 import com.j2e.Constants;
 import com.j2e.entities.BaseData;
 import com.opensymphony.xwork2.ActionSupport;
-import lombok.extern.log4j.Log4j2;
 import org.apache.commons.io.FileUtils;
 import org.apache.struts2.ServletActionContext;
-import org.apache.struts2.convention.annotation.Action;
-import org.apache.struts2.convention.annotation.ParentPackage;
-import org.apache.struts2.convention.annotation.Result;
-import org.apache.struts2.json.JSONWriter;
-import org.springframework.stereotype.Component;
 
-import java.io.*;
+import java.io.File;
 import java.net.InetAddress;
 import java.net.UnknownHostException;
-import java.nio.charset.StandardCharsets;
 
 /**
  * @author sofiworker
