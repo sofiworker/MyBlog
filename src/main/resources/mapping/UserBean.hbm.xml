@@ -21,7 +21,7 @@
             <column name="gender" sql-type="varchar(10)" length="10"/>
         </property>
         <property name="sign">
-            <column name=" sign" sql-type="varchar(255)"/>
+            <column name="sign" sql-type="varchar(255)"/>
         </property>
         <property name="type">
             <column name="type" sql-type="int(1)"/>

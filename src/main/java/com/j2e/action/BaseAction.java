@@ -2,10 +2,8 @@ package com.j2e.action;
 
 import com.j2e.entities.BaseData;
 import com.opensymphony.xwork2.ActionSupport;
-import org.apache.struts2.convention.annotation.InterceptorRef;
-import org.apache.struts2.convention.annotation.ParentPackage;
-import org.apache.struts2.convention.annotation.Result;
-import org.apache.struts2.convention.annotation.Results;
+import lombok.extern.log4j.Log4j2;
+import org.apache.struts2.convention.annotation.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
