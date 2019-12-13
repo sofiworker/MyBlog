@@ -9,7 +9,7 @@
 <br>
 <a href="login.jsp">请登录</a>
 <a href="register.jsp">请注册</a>
-
+<a href="Home.jsp">主页</a>
 <a href="edit.jsp">文章编辑</a>
 </body>
 </html>
