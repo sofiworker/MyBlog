@@ -12,7 +12,7 @@ import org.springframework.stereotype.Component;
  * @author sofiworker
  * @version 1.0.0
  * @date 2019/12/5 20:40
- * @description 用户action，包括登录与注册
+ * @description 登录action
  */
 @Component
 public class LoginAction extends BaseAction<UserBean> {

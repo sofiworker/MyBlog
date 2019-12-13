@@ -2,6 +2,12 @@ package com.j2e.entities;
 
 import javax.persistence.*;
 
+/**
+ * @author sofiworker
+ * @version 1.0.0
+ * @date 2019/12/11 19:41
+ * @description TODO
+ */
 @Entity
 @Table(name = "essay", schema = "myblog", catalog = "")
 public class EssayBean {

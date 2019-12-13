@@ -3,6 +3,12 @@ package com.j2e.entities;
 import javax.persistence.*;
 import java.sql.Timestamp;
 
+/**
+ * @author sofiworker
+ * @version 1.0.0
+ * @date 2019/12/11 19:41
+ * @description TODO
+ */
 @Entity
 @Table(name = "user", schema = "myblog", catalog = "")
 public class UserBean {
@@ -66,7 +72,7 @@ public class UserBean {
     }
 
     @Basic
-    @Column(name = " sign", nullable = false, length = 255)
+    @Column(name = "sign", nullable = false, length = 255)
     public String getSign() {
         return sign;
     }

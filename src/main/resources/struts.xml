@@ -16,4 +16,8 @@
             <result name="noLogin">/json/noLogin.json</result>
         </global-results>
     </package>
+
+    <package name="file" extends="struts-default" namespace="/">
+        <action name="fileUpload" class="com.j2e.action.FileUploadAction" method="fileUpload"/>
+    </package>
 </struts>

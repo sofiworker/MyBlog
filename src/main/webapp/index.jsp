@@ -11,5 +11,6 @@
 <a href="register.jsp">请注册</a>
 <a href="Home.jsp">主页</a>
 <a href="edit.jsp">文章编辑</a>
+<a href="fileUpload.jsp">图片上传测试</a>
 </body>
 </html>
