@@ -10,6 +10,6 @@ import com.j2e.entities.UserBean;
  */
 public interface UserDao {
     boolean findUserById(String uid);
-    UserBean validatePassword(UserBean userBean);
+    UserBean validatePassword(String uid, String password);
     boolean saveUser(UserBean user);
 }

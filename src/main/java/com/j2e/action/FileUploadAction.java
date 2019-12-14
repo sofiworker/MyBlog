@@ -3,12 +3,16 @@ package com.j2e.action;
 import cn.hutool.core.util.IdUtil;
 import com.alibaba.fastjson.JSON;
 import com.j2e.Constants;
+import com.j2e.dto.UserDto;
 import com.j2e.entities.BaseData;
+import com.j2e.entities.UserBean;
+import com.opensymphony.xwork2.ActionContext;
 import com.opensymphony.xwork2.ActionSupport;
 import org.apache.commons.io.FileUtils;
 import org.apache.struts2.ServletActionContext;
 
 import java.io.File;
+import java.io.IOException;
 import java.net.InetAddress;
 import java.net.UnknownHostException;
 
@@ -22,6 +26,7 @@ public class FileUploadAction extends ActionSupport {
 
     private static final long serialVersionUID = 8934089440719746421L;
 
+    private BaseData<String> data = new BaseData<>();
     private File uploadFile;
     private String uploadFileContentType;
     private String uploadFileFileName;
@@ -52,17 +57,26 @@ public class FileUploadAction extends ActionSupport {
     }
 
     public String fileUpload() throws Exception{
-        String uploadPath = ServletActionContext.getServletContext().getRealPath("/upload");
-        newName = createNewName();
-        File toFile = new File(uploadPath + File.separator + newName);
-        FileUtils.copyFile(uploadFile, toFile);
-        BaseData<String> data = new BaseData<>();
-        String url = getUrl();
-        data.setData(url);
-        ServletActionContext.getResponse().setContentType("application/json;charset=UTF-8");
-        ServletActionContext.getResponse().setCharacterEncoding("UTF-8");
-        ServletActionContext.getResponse().getWriter().print(JSON.toJSONString(data));
-        return  NONE;
+        UserDto user = (UserDto) ActionContext.getContext().getSession().get(Constants.LOGIN_USER);
+        if (user == null) {
+            ServletActionContext.getResponse().setContentType("application/json;charset=UTF-8");
+            ServletActionContext.getResponse().setCharacterEncoding("UTF-8");
+            data.setData(null);
+            data.setNormalMsg("未登录！");
+            ServletActionContext.getResponse().getWriter().print(JSON.toJSONString(data));
+            return NONE;
+        }else {
+            String uploadPath = ServletActionContext.getServletContext().getRealPath("/upload");
+            newName = createNewName();
+            File toFile = new File(uploadPath + File.separator + newName);
+            FileUtils.copyFile(uploadFile, toFile);
+            String url = getUrl();
+            data.setData(url);
+            ServletActionContext.getResponse().setContentType("application/json;charset=UTF-8");
+            ServletActionContext.getResponse().setCharacterEncoding("UTF-8");
+            ServletActionContext.getResponse().getWriter().print(JSON.toJSONString(data));
+            return  NONE;
+        }
     }
 
     private String createNewName(){

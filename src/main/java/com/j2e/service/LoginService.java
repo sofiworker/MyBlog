@@ -12,5 +12,5 @@ public interface LoginService {
 
     boolean findUserExist(String uid);
 
-    UserBean loginSuccess(UserBean user);
+    UserBean loginSuccess(String uid, String password);
 }

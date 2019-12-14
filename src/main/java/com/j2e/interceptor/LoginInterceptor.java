@@ -1,6 +1,7 @@
 package com.j2e.interceptor;
 
 import com.j2e.Constants;
+import com.j2e.dto.UserDto;
 import com.j2e.entities.UserBean;
 import com.opensymphony.xwork2.ActionContext;
 import com.opensymphony.xwork2.ActionInvocation;
@@ -22,7 +23,7 @@ public class LoginInterceptor extends AbstractInterceptor {
     public String intercept(ActionInvocation invocation) throws Exception {
         Object action = invocation.getAction();
         log.debug(action.getClass().getSimpleName());
-        UserBean user = (UserBean) ActionContext.getContext().getSession().get(Constants.LOGIN_USER);
+        UserDto user = (UserDto) ActionContext.getContext().getSession().get(Constants.LOGIN_USER);
         if (user == null) {
             return "noLogin";
         }else {

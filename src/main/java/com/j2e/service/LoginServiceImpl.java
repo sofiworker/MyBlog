@@ -11,7 +11,6 @@ import org.springframework.stereotype.Service;
  * @date 2019/12/6 18:47
  * @description 登录服务页面
  */
-
 @Service
 public class LoginServiceImpl implements LoginService{
 
@@ -28,7 +27,7 @@ public class LoginServiceImpl implements LoginService{
     }
 
     @Override
-    public UserBean loginSuccess(UserBean user) {
-        return mUserDao.validatePassword(user);
+    public UserBean loginSuccess(String uid, String password) {
+        return mUserDao.validatePassword(uid, password);
     }
 }

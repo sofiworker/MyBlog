@@ -4,6 +4,8 @@
         "http://struts.apache.org/dtds/struts-2.5.dtd">
 <struts>
     <constant name="struts.devMode" value="true" />
+    <!--设置文件上传最大值为12m-->
+    <constant name="struts.multipart.maxSize" value="12582912"/>
 
     <!-- 编码格式 -->
     <constant name="struts.i18n.encoding" value="UTF-8" />

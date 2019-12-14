@@ -6,7 +6,7 @@ import javax.persistence.*;
  * @author sofiworker
  * @version 1.0.0
  * @date 2019/12/11 19:41
- * @description TODO
+ * @description 文章标签实体类
  */
 @Entity
 @Table(name = "tag", schema = "myblog", catalog = "")
