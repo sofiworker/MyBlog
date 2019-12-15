@@ -1,4 +1,4 @@
-package com.j2e.dao;
+package com.j2e.dao.tag;
 
 import com.j2e.entities.TagBean;
 import org.springframework.beans.factory.annotation.Autowired;

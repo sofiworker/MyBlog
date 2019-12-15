@@ -1,7 +1,7 @@
 package com.j2e.action;
 
 import com.j2e.entities.TagBean;
-import com.j2e.service.TagService;
+import com.j2e.service.tag.TagService;
 import lombok.extern.log4j.Log4j2;
 import org.apache.struts2.convention.annotation.Action;
 import org.apache.struts2.convention.annotation.InterceptorRef;

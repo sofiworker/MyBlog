@@ -1,4 +1,4 @@
-package com.j2e.dao;
+package com.j2e.dao.essay;
 
 import com.j2e.entities.EssayBean;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,5 +24,10 @@ public class EssayDaoImpl implements EssayDao {
     @Override
     public boolean saveEssay(EssayBean essay) {
         return template.save(essay) != null;
+    }
+
+    @Override
+    public void updateEssay(EssayBean essay) {
+        template.update(essay);
     }
 }

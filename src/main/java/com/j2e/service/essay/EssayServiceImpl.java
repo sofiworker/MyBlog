@@ -1,9 +1,9 @@
-package com.j2e.service;
+package com.j2e.service.essay;
 
 import cn.hutool.core.util.IdUtil;
 import com.j2e.Constants;
-import com.j2e.dao.EssayDao;
-import com.j2e.dto.EssayDto;
+import com.j2e.dao.essay.EssayDao;
+import com.j2e.dto.EditDto;
 import com.j2e.dto.UserDto;
 import com.j2e.entities.EssayBean;
 import com.opensymphony.xwork2.ActionContext;
@@ -29,7 +29,7 @@ public class EssayServiceImpl implements EssayService {
     }
 
     @Override
-    public boolean saveEssay(EssayDto dto) {
+    public boolean saveEssay(EditDto dto) {
         EssayBean bean = new EssayBean();
         bean.seteId(IdUtil.simpleUUID());
         bean.seteTitle(dto.getTitle());
@@ -44,5 +44,10 @@ public class EssayServiceImpl implements EssayService {
     private String getUid(){
         UserDto user = (UserDto) ActionContext.getContext().getSession().get(Constants.LOGIN_USER);
         return user.getUid();
+    }
+
+    @Override
+    public void updateEssay(EssayBean essay) {
+        dao.updateEssay(essay);
     }
 }

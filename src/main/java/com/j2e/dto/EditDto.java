@@ -9,7 +9,7 @@ import lombok.Data;
  * @description 文章传输层
  */
 @Data
-public class EssayDto {
+public class EditDto {
     private String title;
     private String content;
     private String userId;

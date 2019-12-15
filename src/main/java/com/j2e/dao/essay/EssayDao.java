@@ -1,4 +1,4 @@
-package com.j2e.dao;
+package com.j2e.dao.essay;
 
 import com.j2e.entities.EssayBean;
 
@@ -11,4 +11,6 @@ import com.j2e.entities.EssayBean;
 public interface EssayDao {
 
     boolean saveEssay(EssayBean essay);
+
+    void updateEssay(EssayBean essay);
 }

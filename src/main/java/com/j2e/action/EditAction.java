@@ -1,8 +1,7 @@
 package com.j2e.action;
 
-import com.j2e.dto.EssayDto;
-import com.j2e.service.EssayService;
-import lombok.extern.log4j.Log4j2;
+import com.j2e.dto.EditDto;
+import com.j2e.service.essay.EssayService;
 import org.apache.struts2.convention.annotation.Action;
 import org.apache.struts2.convention.annotation.InterceptorRef;
 import org.apache.struts2.convention.annotation.Result;
@@ -19,14 +18,14 @@ import org.springframework.stereotype.Component;
 public class EditAction extends BaseAction<String> {
 
     private static final long serialVersionUID = 5646859336197739469L;
-    private EssayDto essay;
+    private EditDto essay;
     private EssayService service;
 
-    public EssayDto getEssay() {
+    public EditDto getEssay() {
         return essay;
     }
 
-    public void setEssay(EssayDto essay) {
+    public void setEssay(EditDto essay) {
         this.essay = essay;
     }
 

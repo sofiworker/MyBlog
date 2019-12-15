@@ -1,4 +1,4 @@
-package com.j2e.dao;
+package com.j2e.dao.user;
 
 import com.j2e.entities.UserBean;
 import org.springframework.beans.factory.annotation.Autowired;

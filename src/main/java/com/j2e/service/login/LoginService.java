@@ -1,4 +1,4 @@
-package com.j2e.service;
+package com.j2e.service.login;
 
 import com.j2e.entities.UserBean;
 

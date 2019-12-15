@@ -6,8 +6,8 @@ import java.sql.Timestamp;
 /**
  * @author sofiworker
  * @version 1.0.0
- * @date 2019/12/11 19:41
- * @description 用户实体类
+ * @date 2019/12/15 14:14
+ * @description 用户实体
  */
 @Entity
 @Table(name = "user", schema = "myblog", catalog = "")

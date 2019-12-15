@@ -1,6 +1,6 @@
-package com.j2e.service;
+package com.j2e.service.tag;
 
-import com.j2e.dao.TagDao;
+import com.j2e.dao.tag.TagDao;
 import com.j2e.entities.TagBean;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
