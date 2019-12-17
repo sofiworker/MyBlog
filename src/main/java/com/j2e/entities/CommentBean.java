@@ -1,6 +1,7 @@
 package com.j2e.entities;
 
 import javax.persistence.*;
+import java.sql.Timestamp;
 
 /**
  * @author sofiworker
@@ -16,6 +17,7 @@ public class CommentBean {
     private String cContent;
     private String cuid;
     private String ceid;
+    private Timestamp createTime;
 
     @Id
     @Column(name = "c_id", nullable = false)
@@ -91,5 +93,15 @@ public class CommentBean {
         result = 31 * result + (cuid != null ? cuid.hashCode() : 0);
         result = 31 * result + (ceid != null ? ceid.hashCode() : 0);
         return result;
+    }
+
+    @Basic
+    @Column(name = "create_time", nullable = false)
+    public Timestamp getCreateTime() {
+        return createTime;
+    }
+
+    public void setCreateTime(Timestamp createTime) {
+        this.createTime = createTime;
     }
 }

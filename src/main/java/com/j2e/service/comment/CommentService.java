@@ -1,6 +1,9 @@
 package com.j2e.service.comment;
 
 import com.j2e.dto.CommentDto;
+import com.j2e.dto.CommentItemDto;
+
+import java.util.List;
 
 /**
  * @author sofiworker
@@ -11,4 +14,6 @@ import com.j2e.dto.CommentDto;
 public interface CommentService {
 
     void saveOneComment(CommentDto dto);
+
+    List<CommentItemDto> getEssayCommentList(String eId);
 }

@@ -1,6 +1,9 @@
 package com.j2e.dao.comment;
 
+import com.j2e.dto.CommentItemDto;
 import com.j2e.entities.CommentBean;
+
+import java.util.List;
 
 /**
  * @author sofiworker
@@ -10,4 +13,6 @@ import com.j2e.entities.CommentBean;
  */
 public interface CommentDao {
     void saveOneComment(CommentBean comment);
+
+    List<CommentItemDto> getCommentList(String eId);
 }

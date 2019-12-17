@@ -3,11 +3,15 @@ package com.j2e.service.comment;
 import com.j2e.Constants;
 import com.j2e.dao.comment.CommentDao;
 import com.j2e.dto.CommentDto;
+import com.j2e.dto.CommentItemDto;
 import com.j2e.dto.UserDto;
 import com.j2e.entities.CommentBean;
 import com.opensymphony.xwork2.ActionContext;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import java.sql.Timestamp;
+import java.util.List;
 
 /**
  * @author sofiworker
@@ -32,7 +36,13 @@ public class CommentServiceImpl implements CommentService {
         bean.setcLevel(dto.getLevel());
         bean.setCeid(dto.getEid());
         bean.setCuid(getUid());
+        bean.setCreateTime(new Timestamp(System.currentTimeMillis()));
         dao.saveOneComment(bean);
+    }
+
+    @Override
+    public List<CommentItemDto> getEssayCommentList(String eId) {
+        return dao.getCommentList(eId);
     }
 
     private String getUid(){

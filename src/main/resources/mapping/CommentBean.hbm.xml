@@ -20,5 +20,8 @@
         <property name="ceid">
             <column name="ceid" sql-type="char(32)" length="32"/>
         </property>
+        <property name="createTime">
+            <column name="create_time" sql-type="timestamp(6)"/>
+        </property>
     </class>
 </hibernate-mapping>
