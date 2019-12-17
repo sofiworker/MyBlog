@@ -1,4 +1,4 @@
-package com.j2e.dao;
+package com.j2e.dao.user;
 
 import com.j2e.entities.UserBean;
 
@@ -10,6 +10,6 @@ import com.j2e.entities.UserBean;
  */
 public interface UserDao {
     boolean findUserById(String uid);
-    UserBean validatePassword(UserBean userBean);
+    UserBean validatePassword(String uid, String password);
     boolean saveUser(UserBean user);
 }

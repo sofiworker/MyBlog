@@ -1,10 +1,13 @@
 package com.j2e.action;
 
 import com.j2e.Constants;
+import com.j2e.dto.UserDto;
 import com.j2e.entities.UserBean;
-import com.j2e.service.LoginService;
+import com.j2e.service.login.LoginService;
 import com.opensymphony.xwork2.ActionContext;
-import org.apache.struts2.convention.annotation.*;
+import lombok.extern.log4j.Log4j2;
+import org.apache.struts2.convention.annotation.Action;
+import org.apache.struts2.convention.annotation.Result;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -12,33 +15,42 @@ import org.springframework.stereotype.Component;
  * @author sofiworker
  * @version 1.0.0
  * @date 2019/12/5 20:40
- * @description 用户action，包括登录与注册
+ * @description 登录action
  */
 @Component
-public class LoginAction extends BaseAction<UserBean> {
+@Log4j2
+public class LoginAction extends BaseAction<UserDto> {
 
     private static final long serialVersionUID = 5452894593134968948L;
-    private UserBean userBean;
     private LoginService service;
+    private String uid;
+    private String password;
 
     @Autowired
     public LoginAction(LoginService service){
         this.service = service;
     }
 
-    public void setUserBean(UserBean userBean) {
-        this.userBean = userBean;
+    public String getUid() {
+        return uid;
     }
 
-    public UserBean getUserBean() {
-        return userBean;
+    public void setUid(String uid) {
+        this.uid = uid;
+    }
+
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
     }
 
     @Action(value = "/login", results = {@Result(type = "json", name = "success", params = {"root","data"}),
             @Result(type = "json", name = "error", params = {"root", "data"})})
     public String loginAction(){
         if (validateInput()){
-            String uid = userBean.getUid();
             if (service.findUserExist(uid)) {
                 return login();
             }else {
@@ -46,29 +58,41 @@ public class LoginAction extends BaseAction<UserBean> {
                 return ERROR;
             }
         }else {
-            data.setNormalMsg("输入格式问题！");
+            data.setNormalMsg("输入为空/格式问题！");
             return ERROR;
         }
     }
 
     private String login(){
-        UserBean user = service.loginSuccess(userBean);
+        UserBean user = service.loginSuccess(uid, password);
         if (user != null) {
-            user.setPassword(null);
-            data.setData(user);
-            ActionContext.getContext().getSession().put(Constants.LOGIN_USER, user);
+            copyUserToDto(user);
             return SUCCESS;
         }else {
-            data.setNormalMsg("登录失败！");
+            data.setNormalMsg("密码错误！");
             return ERROR;
         }
     }
 
-    public boolean validateInput() {
-        int accountLen = 11;
-        int passwordMiniLen = 8;
-        int passwordMaxLen = 16;
-        return userBean.getUid().length() == accountLen &&
-                userBean.getPassword().length() >= passwordMiniLen && userBean.getPassword().length() <= passwordMaxLen;
+    private void copyUserToDto(UserBean userBean){
+        UserDto dto = new UserDto();
+        dto.setUid(userBean.getUid());
+        dto.setUsername(userBean.getUsername());
+        dto.setPhoto(userBean.getPhoto());
+        dto.setGender(userBean.getGender());
+        dto.setSign(userBean.getSign());
+        dto.setType(userBean.getType());
+        dto.setCreateTime(userBean.getCreatetime());
+        data.setData(dto);
+        ActionContext.getContext().getSession().put(Constants.LOGIN_USER, dto);
+    }
+
+    private boolean validateInput(){
+        if (uid != null && password != null){
+            return uid.length() == 11 &&
+                    password.length() >= 8 && password.length() <= 16;
+        }else {
+            return false;
+        }
     }
 }

@@ -1,4 +1,4 @@
-package com.j2e.dao;
+package com.j2e.dao.user;
 
 import com.j2e.entities.UserBean;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -30,15 +30,10 @@ public class UserDaoImpl implements UserDao {
     }
 
     @Override
-    public UserBean validatePassword(UserBean userBean) {
-        boolean isExist = findUserById(userBean.getUid());
-        if (isExist) {
-            UserBean user = mTemplate.get(UserBean.class, userBean.getUid());
-            if (userBean.getPassword().equals(user.getPassword())) {
-                return user;
-            }else {
-                return null;
-            }
+    public UserBean validatePassword(String uid, String password) {
+        UserBean user = mTemplate.get(UserBean.class, uid);
+        if (password.equals(user.getPassword())) {
+            return user;
         }else {
             return null;
         }

@@ -1,4 +1,4 @@
-package com.j2e.service;
+package com.j2e.service.login;
 
 import com.j2e.entities.UserBean;
 
@@ -12,5 +12,5 @@ public interface LoginService {
 
     boolean findUserExist(String uid);
 
-    UserBean loginSuccess(UserBean user);
+    UserBean loginSuccess(String uid, String password);
 }

@@ -2,7 +2,7 @@ package com.j2e.action;
 
 import cn.hutool.core.util.StrUtil;
 import com.j2e.entities.UserBean;
-import com.j2e.service.RegisterService;
+import com.j2e.service.register.RegisterService;
 import org.apache.struts2.convention.annotation.Action;
 import org.apache.struts2.convention.annotation.Result;
 import org.springframework.beans.factory.annotation.Autowired;

@@ -1,13 +1,23 @@
 package com.j2e.entities;
 
 import javax.persistence.*;
+import java.sql.Timestamp;
 
+/**
+ * @author sofiworker
+ * @version 1.0.0
+ * @date 2019/12/15 15:55
+ * @description 评论实体
+ */
 @Entity
 @Table(name = "comment", schema = "myblog", catalog = "")
 public class CommentBean {
     private int cId;
     private int cLevel;
     private String cContent;
+    private String cuid;
+    private String ceid;
+    private Timestamp createTime;
 
     @Id
     @Column(name = "c_id", nullable = false)
@@ -39,16 +49,38 @@ public class CommentBean {
         this.cContent = cContent;
     }
 
+    @Basic
+    @Column(name = "cuid", nullable = false, length = 11)
+    public String getCuid() {
+        return cuid;
+    }
+
+    public void setCuid(String cuid) {
+        this.cuid = cuid;
+    }
+
+    @Basic
+    @Column(name = "ceid", nullable = false, length = 32)
+    public String getCeid() {
+        return ceid;
+    }
+
+    public void setCeid(String ceid) {
+        this.ceid = ceid;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
 
-        CommentBean that = (CommentBean) o;
+        CommentBean bean = (CommentBean) o;
 
-        if (cId != that.cId) return false;
-        if (cLevel != that.cLevel) return false;
-        if (cContent != null ? !cContent.equals(that.cContent) : that.cContent != null) return false;
+        if (cId != bean.cId) return false;
+        if (cLevel != bean.cLevel) return false;
+        if (cContent != null ? !cContent.equals(bean.cContent) : bean.cContent != null) return false;
+        if (cuid != null ? !cuid.equals(bean.cuid) : bean.cuid != null) return false;
+        if (ceid != null ? !ceid.equals(bean.ceid) : bean.ceid != null) return false;
 
         return true;
     }
@@ -58,6 +90,18 @@ public class CommentBean {
         int result = cId;
         result = 31 * result + cLevel;
         result = 31 * result + (cContent != null ? cContent.hashCode() : 0);
+        result = 31 * result + (cuid != null ? cuid.hashCode() : 0);
+        result = 31 * result + (ceid != null ? ceid.hashCode() : 0);
         return result;
+    }
+
+    @Basic
+    @Column(name = "create_time", nullable = false)
+    public Timestamp getCreateTime() {
+        return createTime;
+    }
+
+    public void setCreateTime(Timestamp createTime) {
+        this.createTime = createTime;
     }
 }

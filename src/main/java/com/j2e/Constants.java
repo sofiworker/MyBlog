@@ -13,6 +13,8 @@ public class Constants {
      * */
     public static final String LOGIN_USER = "loginUser";
 
+    public static final String PORT = "8080";
+
     public static final String LOGIN_FAIL = "loginFail";
     public static final String REGISTER_FAIL = "registerFail";
     public static final String CHECK_ACCOUNT_OR_PASSWORD_RIGHT = "请检验账号/密码是否正确！";

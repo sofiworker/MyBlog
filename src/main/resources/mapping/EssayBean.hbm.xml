@@ -21,7 +21,10 @@
             <column name="e_comment" sql-type="int(11)"/>
         </property>
         <property name="userId">
-            <column name="user_id" sql-type="int(11)"/>
+            <column name="user_id" sql-type="char(11)" length="11"/>
+        </property>
+        <property name="tagId">
+            <column name="tag_id" sql-type="int(11)"/>
         </property>
     </class>
 </hibernate-mapping>

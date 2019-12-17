@@ -2,6 +2,12 @@ package com.j2e.entities;
 
 import javax.persistence.*;
 
+/**
+ * @author sofiworker
+ * @version 1.0.0
+ * @date 2019/12/13 22:55
+ * @description 文章实体类
+ */
 @Entity
 @Table(name = "essay", schema = "myblog", catalog = "")
 public class EssayBean {
@@ -10,7 +16,8 @@ public class EssayBean {
     private String eContent;
     private int eLike;
     private int eComment;
-    private int userId;
+    private String userId;
+    private int tagId;
 
     @Id
     @Column(name = "e_id", nullable = false, length = 32)
@@ -63,13 +70,23 @@ public class EssayBean {
     }
 
     @Basic
-    @Column(name = "user_id", nullable = false)
-    public int getUserId() {
+    @Column(name = "user_id", nullable = false, length = 11)
+    public String getUserId() {
         return userId;
     }
 
-    public void setUserId(int userId) {
+    public void setUserId(String userId) {
         this.userId = userId;
+    }
+
+    @Basic
+    @Column(name = "tag_id", nullable = false)
+    public int getTagId() {
+        return tagId;
+    }
+
+    public void setTagId(int tagId) {
+        this.tagId = tagId;
     }
 
     @Override
@@ -81,10 +98,11 @@ public class EssayBean {
 
         if (eLike != essayBean.eLike) return false;
         if (eComment != essayBean.eComment) return false;
-        if (userId != essayBean.userId) return false;
+        if (tagId != essayBean.tagId) return false;
         if (eId != null ? !eId.equals(essayBean.eId) : essayBean.eId != null) return false;
         if (eTitle != null ? !eTitle.equals(essayBean.eTitle) : essayBean.eTitle != null) return false;
         if (eContent != null ? !eContent.equals(essayBean.eContent) : essayBean.eContent != null) return false;
+        if (userId != null ? !userId.equals(essayBean.userId) : essayBean.userId != null) return false;
 
         return true;
     }
@@ -96,7 +114,8 @@ public class EssayBean {
         result = 31 * result + (eContent != null ? eContent.hashCode() : 0);
         result = 31 * result + eLike;
         result = 31 * result + eComment;
-        result = 31 * result + userId;
+        result = 31 * result + (userId != null ? userId.hashCode() : 0);
+        result = 31 * result + tagId;
         return result;
     }
 }
