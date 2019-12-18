@@ -59,22 +59,15 @@ public class FileUploadAction extends ActionSupport {
     public String fileUpload() throws Exception{
         ServletActionContext.getResponse().setContentType("application/json;charset=UTF-8");
         ServletActionContext.getResponse().setCharacterEncoding("UTF-8");
-        UserDto user = (UserDto) ActionContext.getContext().getSession().get(Constants.LOGIN_USER);
-        if (user == null) {
-            data.setData(null);
-            data.setNormalMsg("未登录！");
-            ServletActionContext.getResponse().getWriter().print(JSON.toJSONString(data));
-            return NONE;
-        }else {
-            String uploadPath = ServletActionContext.getServletContext().getRealPath("/upload");
-            newName = createNewName();
-            File toFile = new File(uploadPath + File.separator + newName);
-            FileUtils.copyFile(uploadFile, toFile);
-            String url = getUrl();
-            data.setData(url);
-            ServletActionContext.getResponse().getWriter().print(JSON.toJSONString(data));
-            return  NONE;
-        }
+
+        String uploadPath = ServletActionContext.getServletContext().getRealPath("/upload");
+        newName = createNewName();
+        File toFile = new File(uploadPath + File.separator + newName);
+        FileUtils.copyFile(uploadFile, toFile);
+        String url = getUrl();
+        data.setData(url);
+        ServletActionContext.getResponse().getWriter().print(JSON.toJSONString(data));
+        return  NONE;
     }
 
     private String createNewName(){
