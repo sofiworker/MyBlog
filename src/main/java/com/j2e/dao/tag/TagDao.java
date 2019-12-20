@@ -11,5 +11,5 @@ import java.util.List;
  * @description 标签dao层
  */
 public interface TagDao {
-    List<TagBean> findTagByKeyWord(String keyWord);
+    List<TagBean> findTagByKeyWord();
 }

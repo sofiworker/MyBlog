@@ -24,8 +24,7 @@ public class TagDaoImpl implements TagDao {
     }
 
     @Override
-    public List<TagBean> findTagByKeyWord(String keyWord) {
-        String sql = "from TagBean where tagName like '%"+keyWord+"%'";
-        return (List<TagBean>)template.find(sql);
+    public List<TagBean> findTagByKeyWord() {
+        return (List<TagBean>)template.find("from TagBean");
     }
 }

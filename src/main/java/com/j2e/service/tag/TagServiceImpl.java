@@ -24,7 +24,7 @@ public class TagServiceImpl implements TagService {
     }
 
     @Override
-    public List<TagBean> findTags(String keyWord) {
-        return tagDao.findTagByKeyWord(keyWord);
+    public List<TagBean> findTags() {
+        return tagDao.findTagByKeyWord();
     }
 }
