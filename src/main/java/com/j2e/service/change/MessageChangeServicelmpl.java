@@ -22,6 +22,7 @@ public class MessageChangeServicelmpl implements MessageChangeService {
 
     @Override
     public boolean savechange(UserBean user){
-        return false;
+
+        return userdao.savechange(user);
     }
 }
