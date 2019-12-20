@@ -31,6 +31,7 @@
             <li class="layui-nav-item">
                 <a id="myname"></a>
             </li>
+            <li class="layui-nav-item" style="display: none" id="question"><a href="../Login/login.html">提问</a></li>
             <li class="layui-nav-item"><a href="../Login/login.html">退出</a></li>
         </ul>
     </div>
@@ -51,6 +52,15 @@
                 </span>
             </div>
             <hr style="margin: 20px 0">
+            <!--<div class="list-group-item">
+                <div class="item">
+                    <a href="#">
+                        <div class="list-group-item-info">
+
+                        </div>
+                    </a>
+                </div>
+            </div>-->
             <div style="padding: 20px; background-color: #F2F2F2;">
                 <div class="layui-row layui-col-space15">
                     <div class="layui-col-md12">
@@ -113,7 +123,12 @@
         });
         $('.layui-breadcrumb').find('a').eq(index).addClass('layui-transfer-active');
     }
-
+    function loadInfo() {
+        $("#myname").text(window.sessionStorage.getItem("uid"));
+        /*console.log("111111"+window.sessionStorage.getItem("uid"))*/
+        $("#question").show();
+    }
+    window.onload = loadInfo;
 
 </script>
 </body>

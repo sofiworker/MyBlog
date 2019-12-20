@@ -12,12 +12,12 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>登录</title>
-    <script src="../js/jquery.js"></script>
-    <script type="text/javascript" src="../layui/layui.js"></script>
-    <script type="text/javascript" src="../layui/layui.all.js"></script>
-    <link rel="stylesheet" href="../css/bootstrap.min.css">
-    <link rel="stylesheet" href="../css/style.css">
-    <script src="../js/bootstrap.min.js"></script>
+    <script src="js/jquery.js"></script>
+    <script type="text/javascript" src="layui/layui.js"></script>
+    <script type="text/javascript" src="layui/layui.all.js"></script>
+    <link rel="stylesheet" href="css/bootstrap.min.css">
+    <link rel="stylesheet" href="css/style.css">
+    <script src="js/bootstrap.min.js"></script>
 </head>
 <body>
 <p class="browserupgrade"></p>
@@ -25,17 +25,17 @@
     <div class="container">
         <div class="sign-content popup-in-content">
             <div class="popup-in-txt">
-                <h2><img src="../image/login.png"> 个人博客</h2>
+                <h2><img src="image/login.png"> 个人博客</h2>
                 <div class="row">
                     <div class="signin-form">
-                        <form  name="fm" action="login" method="post">
+                        <form  name="fm"  method="post" id="login">
                             <div class="form-group">
                                 <label >用户名</label>
-                                <input type="text" class="form-control" name="userBean.uid" placeholder="请输入正确的用户名">
+                                <input type="text" class="form-control" name="uid" placeholder="请输入正确的用户名">
                             </div><!--/.form-group -->
                             <div class="form-group">
                                 <label >密码</label>
-                                <input type="password" class="form-control" name="userBean.password" id="password" placeholder="请输入正确的密码">
+                                <input type="password" class="form-control" name="password" id="password" placeholder="请输入正确的密码">
                             </div><!--/.form-group -->
                             <div class="signin-footer">
                                 <span><a href="#"></a ></span>
@@ -48,7 +48,7 @@
                                 <div class="signin-footer">
                                     <p>
                                         未注册？
-                                        <a href="../register.jsp">注册</a>
+                                        <a href="register.jsp">注册</a>
                                     </p>
                                 </div><!--/.signin-footer -->
                             </div><!--/.col-->
@@ -66,19 +66,32 @@
     </div>
 </footer>
 <script>
+    var $ = layui.$;
+    function form2JsonString(formId) {
+        var paramArray = $('#' + formId).serializeArray();
+        var jsonObj = {};
+        $(paramArray).each(function () {
+            jsonObj[this.name] = this.value;
+        });
+        return JSON.stringify(jsonObj);
+    }
+
     function log(){
-      console.log('11111111111111111');
-      var js={"userBean":{"uid":"12345678910","password":"12345678"}};
-      $.ajax({url:"http://localhost:8080/login",
+      var jsondata  = eval("("+form2JsonString("login")+")");
+      console.log(JSON.stringify(jsondata))
+      $.ajax({url:"http://localhost:9999/login",
           type:"post",
           dataType: "json",
           contentType:"application/json;charset=UTF-8",
-          data:JSON.stringify(js),
+          data:JSON.stringify(jsondata),
           success:function(data) {
+            console.log('11111111111111111');
+            window.sessionStorage.setItem("uid",data.data.uid);
             console.log(data);
             console.log(data.data.uid);
-        }})
-
+            window.location.href="Home.jsp";
+        }
+      })
     }
 </script>
 </body>

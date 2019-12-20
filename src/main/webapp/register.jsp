@@ -15,13 +15,12 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link href="https://fonts.googleapis.com/css?family=Poppins:100,200,300,400,500,600,700,800,900&amp;subset=devanagari,latin-ext" rel="stylesheet">
     <title>注册</title>
-    <link rel="shortcut icon" type="image/icon" href="../logo/favicon.png"/>
-    <link rel="stylesheet" href="../css/font-awesome.min.css">
-    <link rel="stylesheet" href="../css/animate.css">
-    <link rel="stylesheet" href="../css/bootstrap.min.css">
-    <link rel="stylesheet" href="../css/bootsnav.css" >
-    <link rel="stylesheet" href="../css/style.css">
-    <link rel="stylesheet" href="../css/responsive.css">
+    <link rel="stylesheet" href="css/font-awesome.min.css">
+    <link rel="stylesheet" href="css/animate.css">
+    <link rel="stylesheet" href="css/bootstrap.min.css">
+    <link rel="stylesheet" href="css/bootsnav.css" >
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/responsive.css">
 </head>
 
 <body>
@@ -94,12 +93,12 @@
     </div><!--/.container -->
 </section><!--/.signin -->
 
-    <script src="../js/jquery.js"></script>
-    <script src="../js/modernizr.min.js"></script>
-    <script src="../js/bootstrap.min.js"></script>
-    <script src="../js/bootsnav.js"></script>
-    <script src="../js/jquery.sticky.js"></script>
-    <script src="../js//jquery.easing.min.js"></script>
-    <script src="../js/custom.js"></script>
+    <script src="js/jquery.js"></script>
+    <script src="js/modernizr.min.js"></script>
+    <script src="js/bootstrap.min.js"></script>
+    <script src="js/bootsnav.js"></script>
+    <script src="js/jquery.sticky.js"></script>
+    <script src="js/jquery.easing.min.js"></script>
+    <script src="js/custom.js"></script>
 </body>
 </html>
