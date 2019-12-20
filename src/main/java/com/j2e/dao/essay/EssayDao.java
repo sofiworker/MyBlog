@@ -2,6 +2,8 @@ package com.j2e.dao.essay;
 
 import com.j2e.entities.EssayBean;
 
+import java.util.List;
+
 /**
  * @author sofiworker
  * @version 1.0.0
@@ -13,4 +15,8 @@ public interface EssayDao {
     boolean saveEssay(EssayBean essay);
 
     void updateEssay(EssayBean essay);
+
+    List<EssayBean> AllEssay();
+
+    List<EssayBean> searchEssay(String str);
 }

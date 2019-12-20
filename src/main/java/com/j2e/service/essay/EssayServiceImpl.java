@@ -11,6 +11,8 @@ import lombok.extern.log4j.Log4j2;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 /**
  * @author sofiworker
  * @version 1.0.0
@@ -49,5 +51,15 @@ public class EssayServiceImpl implements EssayService {
     @Override
     public void updateEssay(EssayBean essay) {
         dao.updateEssay(essay);
+    }
+
+    @Override
+    public List<EssayBean> AllEssay() {
+        return dao.AllEssay();
+    }
+
+    @Override
+    public List<EssayBean> searchEssay(String str) {
+        return dao.searchEssay(str);
     }
 }
