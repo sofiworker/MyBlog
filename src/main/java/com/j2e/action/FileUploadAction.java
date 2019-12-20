@@ -3,16 +3,14 @@ package com.j2e.action;
 import cn.hutool.core.util.IdUtil;
 import com.alibaba.fastjson.JSON;
 import com.j2e.Constants;
-import com.j2e.dto.UserDto;
+import com.j2e.dto.ImgDto;
 import com.j2e.entities.BaseData;
-import com.j2e.entities.UserBean;
-import com.opensymphony.xwork2.ActionContext;
 import com.opensymphony.xwork2.ActionSupport;
+import lombok.extern.log4j.Log4j2;
 import org.apache.commons.io.FileUtils;
 import org.apache.struts2.ServletActionContext;
 
 import java.io.File;
-import java.io.IOException;
 import java.net.InetAddress;
 import java.net.UnknownHostException;
 
@@ -22,38 +20,39 @@ import java.net.UnknownHostException;
  * @date 2019/12/11 16:23
  * @description 文件上传action
  */
+@Log4j2
 public class FileUploadAction extends ActionSupport {
 
     private static final long serialVersionUID = 8934089440719746421L;
 
-    private BaseData<String> data = new BaseData<>();
-    private File uploadFile;
-    private String uploadFileContentType;
-    private String uploadFileFileName;
+    private BaseData<ImgDto> data = new BaseData<>();
+    private File file;
+    private String fileContentType;
+    private String fileFileName;
     private String newName;
 
-    public String getUploadFileContentType() {
-        return uploadFileContentType;
+    public String getFileContentType() {
+        return fileContentType;
     }
 
-    public void setUploadFileContentType(String uploadFileContentType) {
-        this.uploadFileContentType = uploadFileContentType;
+    public void setFileContentType(String fileContentType) {
+        this.fileContentType = fileContentType;
     }
 
-    public String getUploadFileFileName() {
-        return uploadFileFileName;
+    public String getFileFileName() {
+        return fileFileName;
     }
 
-    public void setUploadFileFileName(String uploadFileFileName) {
-        this.uploadFileFileName = uploadFileFileName;
+    public void setFileFileName(String fileFileName) {
+        this.fileFileName = fileFileName;
     }
 
-    public File getUploadFile() {
-        return uploadFile;
+    public File getFile() {
+        return file;
     }
 
-    public void setUploadFile(File uploadFile) {
-        this.uploadFile = uploadFile;
+    public void setFile(File file) {
+        this.file = file;
     }
 
     public String fileUpload() throws Exception{
@@ -63,19 +62,23 @@ public class FileUploadAction extends ActionSupport {
         String uploadPath = ServletActionContext.getServletContext().getRealPath("/upload");
         newName = createNewName();
         File toFile = new File(uploadPath + File.separator + newName);
-        FileUtils.copyFile(uploadFile, toFile);
+        FileUtils.copyFile(file, toFile);
         String url = getUrl();
-        data.setData(url);
-        ServletActionContext.getResponse().getWriter().print(JSON.toJSONString(data));
+        data.setCode(0);
+        ImgDto data = new ImgDto();
+        data.setSrc(url);
+        data.setTitle(newName);
+        this.data.setData(data);
+        ServletActionContext.getResponse().getWriter().print(JSON.toJSONString(this.data));
         return  NONE;
     }
 
     private String createNewName(){
-        return IdUtil.simpleUUID() + "."+uploadFileFileName.substring(uploadFileFileName.lastIndexOf(".") + 1);
+        return IdUtil.simpleUUID() + "."+ fileFileName.substring(fileFileName.lastIndexOf(".") + 1);
     }
 
     private String getUrl() throws UnknownHostException{
         String host = InetAddress.getLocalHost().getHostAddress();
-        return host + ":" + Constants.PORT + "/upload/" + newName;
+        return "http://"+host + ":" + Constants.PORT + "/upload/" + newName;
     }
 }

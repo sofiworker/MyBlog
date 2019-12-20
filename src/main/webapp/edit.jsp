@@ -14,12 +14,10 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
     <script src="js/jquery-3.3.1.min%20(1).js"></script>
-    <script src="editormd/editormd.min.js"></script>
     <script src="js/bootstrap-select.js"></script>
     <link rel="stylesheet" href="layui/css/layui.css"  media="all">
     <script type="text/javascript" src="layui/layui.all.js"></script>
     <script type="text/javascript" src="layui/layui.js" charset="utf-8"></script>
-    <link rel="stylesheet" href="editormd/css/editormd.css" />
 </head>
 <body>
 <div class="layui-layout layui-layout-admin" style="height: 65px;">
@@ -61,16 +59,14 @@
                                             <input type="text" class="form-control layui-input" id="question"  name="question" placeholder="问题标题...">
                                         </div>
                                         <hr style="margin: 20px 0">
-                                        <!--<div class="layui-form-item layui-form-text">
+                                        <div class="layui-form-item layui-form-text">
                                             <label class="layui-form-label"><b>问题描述：</b></label>
                                             <div class="layui-input-block">
                                                 <textarea class="layui-textarea layui-hide" name="content" lay-verify="content" id="myEditor" placeholder="问题描述..."></textarea>
                                             </div>
-                                        </div>-->
-
-                                        <div id="editor">
-                                            <textarea style="display:none;" ></textarea>
                                         </div>
+
+
                                         <hr style="margin: 20px 0">
                                         <div class="form-group">
                                             <label for="tag"><b>添加标签:</b></label>
@@ -93,18 +89,6 @@
     </div>
 </div>
 <script type="text/javascript" src="layui/layui.js" charset="utf-8"></script>
-<script type="text/javascript">
-    $(function() {
-        var editor = editormd("editor", {
-            width  : "100%",
-            height : 540,
-            path   : "../editormd/lib/",
-            imageUpload    : true,
-            imageFormats   : ["jpg", "jpeg", "gif", "png", "bmp", "webp"],
-            imageUploadURL : "http://localhost:9999/fileUpload",
-        });
-    });
-</script>
 <script>
     layui.use(['form', 'layedit'], function(){
         var form = layui.form
@@ -113,7 +97,13 @@
 
 
         //创建一个编辑器
+        layedit.set({
+            uploadImage: {
+                url: 'http://localhost:8080/fileUpload' //接口url
+            }
+        });
         var editIndex = layedit.build('myEditor');
+
 
         //自定义验证规则
         form.verify({
@@ -126,7 +116,7 @@
         form.on('submit(editor)', function(data){
             layer.alert(JSON.stringify(data.field.content), {
                 title: '评论内容：'
-            })
+            });
             return false;
         });
 

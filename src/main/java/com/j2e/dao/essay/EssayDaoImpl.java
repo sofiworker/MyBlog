@@ -5,6 +5,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.orm.hibernate5.HibernateTemplate;
 import org.springframework.stereotype.Repository;
 
+import java.util.List;
+
 /**
  * @author sofiworker
  * @version 1.0.0
@@ -29,5 +31,16 @@ public class EssayDaoImpl implements EssayDao {
     @Override
     public void updateEssay(EssayBean essay) {
         template.update(essay);
+    }
+
+    @Override
+    public List<EssayBean> AllEssay() {
+        return (List<EssayBean>) template.find("from EssayBean ");
+    }
+
+    @Override
+    public List<EssayBean> searchEssay(String str) {
+        System.out.println(str);
+        return (List<EssayBean>) template.find("from EssayBean where eTitle like ?0 or eContent like  ?1","%"+str+"%","%"+str+"%");
     }
 }

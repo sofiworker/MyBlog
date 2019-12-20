@@ -50,6 +50,7 @@ public class LoginAction extends BaseAction<UserDto> {
     @Action(value = "/login", results = {@Result(type = "json", name = "success", params = {"root","data"}),
             @Result(type = "json", name = "error", params = {"root", "data"})})
     public String loginAction(){
+        System.out.println(uid+" aaa  "+password);
         if (validateInput()){
             if (service.findUserExist(uid)) {
                 return login();
