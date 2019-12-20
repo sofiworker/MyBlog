@@ -12,4 +12,5 @@ public interface UserDao {
     boolean findUserById(String uid);
     UserBean validatePassword(String uid, String password);
     boolean saveUser(UserBean user);
+    UserBean findUser(String uid);
 }

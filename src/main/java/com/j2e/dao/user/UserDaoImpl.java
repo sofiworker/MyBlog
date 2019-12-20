@@ -28,6 +28,10 @@ public class UserDaoImpl implements UserDao {
         UserBean userBean = mTemplate.get(UserBean.class, uid);
         return userBean != null;
     }
+    @Override
+    public UserBean findUser(String uid){
+        return mTemplate.get(UserBean.class, uid);
+    }
 
     @Override
     public UserBean validatePassword(String uid, String password) {
