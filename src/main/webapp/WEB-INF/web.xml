@@ -8,15 +8,9 @@
          xsi:schemaLocation="http://java.sun.com/xml/ns/j2ee http://java.sun.com/xml/ns/j2ee/web-app_2_4.xsd">
   <display-name>Archetype Created Web Application</display-name>
 
-
   <filter>
     <filter-name>struts2</filter-name>
     <filter-class>org.apache.struts2.dispatcher.filter.StrutsPrepareAndExecuteFilter</filter-class>
-    <!--        完全使用注解时，将struts中<constant name="struts.devMode" value="true" />去掉添加以下参数-->
-<!--            <init-param>-->
-<!--                <param-name>struts.devMode</param-name>-->
-<!--                <param-value>true</param-value>-->
-<!--            </init-param>-->
   </filter>
 
   <listener>

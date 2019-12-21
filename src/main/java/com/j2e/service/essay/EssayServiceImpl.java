@@ -3,13 +3,13 @@ package com.j2e.service.essay;
 import cn.hutool.core.util.IdUtil;
 import com.j2e.Constants;
 import com.j2e.dao.essay.EssayDao;
-import com.j2e.dto.EditDto;
 import com.j2e.dto.UserDto;
 import com.j2e.entities.EssayBean;
 import com.opensymphony.xwork2.ActionContext;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
@@ -21,6 +21,7 @@ import java.util.List;
  */
 @Service
 @Log4j2
+@Transactional(rollbackFor = {Exception.class})
 public class EssayServiceImpl implements EssayService {
 
     private EssayDao dao;
@@ -31,15 +32,11 @@ public class EssayServiceImpl implements EssayService {
     }
 
     @Override
-    public boolean saveEssay(EditDto dto) {
-        EssayBean bean = new EssayBean();
+    public boolean saveEssay(EssayBean bean) {
         bean.seteId(IdUtil.simpleUUID());
-        bean.seteTitle(dto.getTitle());
-        bean.seteContent(dto.getContent());
-        bean.seteComment(0);
         bean.seteLike(0);
+        bean.seteComment(0);
         bean.setUserId(getUid());
-        bean.setTagId(dto.getTagId());
         return dao.saveEssay(bean);
     }
 
@@ -61,5 +58,10 @@ public class EssayServiceImpl implements EssayService {
     @Override
     public List<EssayBean> searchEssay(String str) {
         return dao.searchEssay(str);
+    }
+
+    @Override
+    public void deleteEssayById(String eId) {
+        dao.deleteEssayById(eId);
     }
 }

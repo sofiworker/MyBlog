@@ -1,12 +1,7 @@
 package com.j2e.action;
 
-import com.j2e.Constants;
-import com.j2e.dto.UserDto;
 import com.j2e.entities.EssayBean;
-import com.j2e.entities.UserBean;
 import com.j2e.service.essay.EssayService;
-import com.j2e.service.login.LoginService;
-import com.opensymphony.xwork2.ActionContext;
 import lombok.extern.log4j.Log4j2;
 import org.apache.struts2.convention.annotation.Action;
 import org.apache.struts2.convention.annotation.Result;

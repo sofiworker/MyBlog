@@ -10,7 +10,7 @@ import java.util.List;
  * @description 文章列表接口
  */
 
-public interface MyEassyService {
+public interface MyEssayService {
 
     List<MyEassyItemDto> myeassy();
 }

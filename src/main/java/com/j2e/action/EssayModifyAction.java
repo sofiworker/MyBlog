@@ -12,7 +12,7 @@ import org.apache.struts2.convention.annotation.Result;
  * @date 2019/12/15 13:25
  * @description 用户文章修改action
  */
-public class ModifyAction extends BaseAction<String>{
+public class EssayModifyAction extends BaseAction<String>{
     private static final long serialVersionUID = 8598209508708546456L;
 
     private EssayBean essay;
@@ -26,7 +26,7 @@ public class ModifyAction extends BaseAction<String>{
         this.essay = essay;
     }
 
-    public ModifyAction(EssayService service){
+    public EssayModifyAction(EssayService service){
         this.service = service;
     }
 

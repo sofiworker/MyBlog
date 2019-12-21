@@ -4,6 +4,7 @@ import com.j2e.dao.user.UserDao;
 import com.j2e.entities.UserBean;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 /**
  * @author mynameexit
@@ -13,10 +14,11 @@ import org.springframework.stereotype.Service;
  */
 
 @Service
-public class MessageChangeServicelmpl implements MessageChangeService {
+@Transactional(rollbackFor = {Exception.class})
+public class MessageChangeServiceImpl implements MessageChangeService {
     private UserDao userdao;
     @Autowired
-    public MessageChangeServicelmpl(UserDao userdao) {
+    public MessageChangeServiceImpl(UserDao userdao) {
         this.userdao=userdao;
     }
 
