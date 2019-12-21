@@ -42,7 +42,8 @@ public class TagAction extends ActionSupport {
         this.service = service;
     }
 
-    @Action(value = "/tagList", interceptorRefs = {@InterceptorRef("loginInterceptor")},
+//    interceptorRefs = {@InterceptorRef("loginInterceptor")},
+    @Action(value = "/tagList",
             results ={@Result(name = "success", type = "json", params = {"root", "data"}),
                     @Result(name = "error", type = "json", params = {"root", "data"})})
     public String searchTag(){

@@ -53,26 +53,33 @@
                             </div>
                             <div class="layui-card-body">
                                 <div class="signin-form">
-                                    <form enctype="multipart/form-data" method="post" id="register">
+                                    <form enctype="multipart/form-data" method="post" id="register" name="fm">
                                         <div class="form-group">
                                             <label for="question"><b>问题标题:</b></label>
                                             <input type="text" class="form-control layui-input" id="question"  name="question" placeholder="问题标题...">
                                         </div>
-                                        <hr style="margin: 20px 0">
+                                    </form>
+                                    <hr style="margin: 20px 0">
+                                    <form enctype="multipart/form-data" method="post" id="fm_question" name="fm_question">
                                         <div class="layui-form-item layui-form-text">
                                             <label class="layui-form-label"><b>问题描述：</b></label>
                                             <div class="layui-input-block">
                                                 <textarea class="layui-textarea layui-hide" name="content" lay-verify="content" id="myEditor" placeholder="问题描述..."></textarea>
                                             </div>
                                         </div>
-
-
-                                        <hr style="margin: 20px 0">
-                                        <div class="form-group">
-                                            <label for="tag"><b>添加标签:</b></label>
-                                            <input type="text" class="form-control layui-input" id="tag"  name="tag" placeholder="标签...">
-                                        </div>
-                                        <hr style="margin: 20px 0">
+                                    </form>
+                                    <hr style="margin: 20px 0">
+                                    <form class="layui-form" name="fm_tag">
+                                           <div class="layui-form-item" >
+                                               <div class="layui-input-inline" style="margin-left: 0px;">
+                                                   <label for="tag"><b>添加标签:</b></label>
+                                                   <select name="tag" id="tag" lay-filter="tag"  lay-verify="required" lay-search="" placeholder="标签...">
+                                                   </select>
+                                               </div>
+                                           </div>
+                                    </form>
+                                    <hr style="margin: 20px 0">
+                                    <form method="post"  name="fm_btn">
                                         <div class="layui-form-item">
                                             <div class="layui-input-block" style="float: right">
                                                 <button type="submit" class="layui-btn" lay-submit="" lay-filter="editor">发布</button>
@@ -99,7 +106,7 @@
         //创建一个编辑器
         layedit.set({
             uploadImage: {
-                url: 'http://localhost:8080/fileUpload' //接口url
+                url: 'http://localhost:9999/fileUpload' //接口url
             }
         });
         var editIndex = layedit.build('myEditor');
@@ -114,12 +121,31 @@
 
         //监听提交
         form.on('submit(editor)', function(data){
-            layer.alert(JSON.stringify(data.field.content), {
+            console.log(layedit.getContent(editIndex))
+            /*layer.alert(JSON.stringify(data.field.content), {
                 title: '评论内容：'
-            });
+            });*/
+            var data = {
+                "essay":{
+                    "title":fm.question.value,
+                    "content":layedit.getContent(editIndex),
+                    "userId":"12345678910",
+                    "tagId":parseInt(fm_tag.tag.value)
+                }
+            }
+            console.log("11111111111111111111111111111111111111")
+            console.log(data)
+            console.log("222222222222222222222222222222")
+            $.ajax({url:"/edit",
+                type:"post",
+                dataType: "json",
+                contentType:"application/json;charset=UTF-8",
+                data:JSON.stringify(data),
+                success:function(data) {
+                    console.log(data);
+                }})
             return false;
         });
-
 
 
     });
@@ -137,11 +163,36 @@
         $('.layui-breadcrumb').find('a').eq(index).addClass('layui-transfer-active');
     }
     function loadInfo() {
-        $(".myname").val(window.sessionStorage.getItem("uid"));
+        // $(".myname").val(window.sessionStorage.getItem("uid"));
+        $(".myname").val("12345678910");
     }
     window.onload = loadInfo;
 
-
+    function addTag() {
+        layui.use('form', function(){
+            var form = layui.form;
+            $.ajax({url:"http://localhost:9999/tagList",
+                type:"post",
+                dataType: "json",
+                processData: false,
+                contentType: false,
+                success:function(result) {
+                    console.log(result)
+                    console.log("1111111111")
+                    var tagstr = ''
+                    tagstr += ' <option value="">'+"请选择标签"+'</option> ';
+                    for (var i=0;i<result.data.length;i++){
+                        var ops = '<option value='+result.data[i].tagId+'>'+ result.data[i].tagName +'</option> '
+                        tagstr += ops
+                    }
+                    /*     console.log(tagstr)*/
+                    $("#tag").html(tagstr)
+                    form.render('select');
+                }
+            })
+        });
+    }
+    window.onload = addTag;
 </script>
 </body>
 </html>
