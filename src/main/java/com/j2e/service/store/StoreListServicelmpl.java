@@ -28,4 +28,5 @@ public class StoreListServicelmpl implements StoreListService{
     public List<StoreDto> findstore(){
         return userdao.findStore();
     }
+
 }
