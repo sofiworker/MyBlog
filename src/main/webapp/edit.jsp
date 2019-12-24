@@ -60,14 +60,12 @@
                                         </div>
                                     </form>
                                     <hr style="margin: 20px 0">
-                                    <form enctype="multipart/form-data" method="post" id="fm_question" name="fm_question">
                                         <div class="layui-form-item layui-form-text">
                                             <label class="layui-form-label"><b>问题描述：</b></label>
                                             <div class="layui-input-block">
                                                 <textarea class="layui-textarea layui-hide" name="content" lay-verify="content" id="myEditor" placeholder="问题描述..."></textarea>
                                             </div>
                                         </div>
-                                    </form>
                                     <hr style="margin: 20px 0">
                                     <form class="layui-form" name="fm_tag">
                                            <div class="layui-form-item" >
@@ -95,7 +93,6 @@
         </div>
     </div>
 </div>
-<script type="text/javascript" src="layui/layui.js" charset="utf-8"></script>
 <script>
     layui.use(['form', 'layedit'], function(){
         var form = layui.form
@@ -112,42 +109,29 @@
         var editIndex = layedit.build('myEditor');
 
 
-        //自定义验证规则
-        form.verify({
-            content: function(value){
-                layedit.sync(editIndex);
-            }
-        });
-
         //监听提交
         form.on('submit(editor)', function(data){
-            console.log(layedit.getContent(editIndex))
-            /*layer.alert(JSON.stringify(data.field.content), {
-                title: '评论内容：'
-            });*/
-            var data = {
-                "essay":{
-                    "title":fm.question.value,
-                    "content":layedit.getContent(editIndex),
-                    "userId":"12345678910",
-                    "tagId":parseInt(fm_tag.tag.value)
+                console.log(layedit.getContent(editIndex))
+                var data = {
+                    "essay":{
+                        "eTitle":fm.question.value,
+                        "eContent":layedit.getContent(editIndex),
+                        "tagId":parseInt(fm_tag.tag.value)
+                    }
                 }
-            }
-            console.log("11111111111111111111111111111111111111")
-            console.log(data)
-            console.log("222222222222222222222222222222")
-            $.ajax({url:"/edit",
-                type:"post",
-                dataType: "json",
-                contentType:"application/json;charset=UTF-8",
-                data:JSON.stringify(data),
-                success:function(data) {
-                    console.log(data);
-                }})
-            return false;
-        });
-
-
+                console.log("11111111111111111111111111111111111111")
+                console.log(data)
+                console.log("222222222222222222222222222222")
+                $.ajax({url:"/edit",
+                    type:"post",
+                    dataType: "json",
+                    contentType:"application/json;charset=UTF-8",
+                    data:JSON.stringify(data),
+                    success:function(data) {
+                        console.log(data);
+                    }})
+                return false;
+        })
     });
 </script>
 <script>
@@ -177,8 +161,8 @@
                 processData: false,
                 contentType: false,
                 success:function(result) {
-                    console.log(result)
-                    console.log("1111111111")
+                    /*console.log(result)
+                    console.log("1111111111")*/
                     var tagstr = ''
                     tagstr += ' <option value="">'+"请选择标签"+'</option> ';
                     for (var i=0;i<result.data.length;i++){
