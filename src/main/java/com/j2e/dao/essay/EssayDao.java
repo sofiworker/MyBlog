@@ -1,5 +1,6 @@
 package com.j2e.dao.essay;
 
+import com.j2e.dto.EssayDto;
 import com.j2e.entities.EssayBean;
 
 import java.util.List;
@@ -21,4 +22,6 @@ public interface EssayDao {
     List<EssayBean> searchEssay(String str);
 
     void deleteEssayById(String eId);
+
+    EssayDto getEssay(String str);
 }
