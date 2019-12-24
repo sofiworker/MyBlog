@@ -7,7 +7,7 @@ import java.sql.Timestamp;
  * @author sofiworker
  * @version 1.0.0
  * @date 2019/12/24 15:03
- * @description TODO
+ * @description 文章bean
  */
 @Entity
 @Table(name = "essay", schema = "myblog", catalog = "")

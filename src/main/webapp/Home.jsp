@@ -55,54 +55,16 @@
 
             <div style="padding: 20px; background-color: #F2F2F2;">
                 <div class="layui-row layui-col-space15">
-                    <div class="layui-col-md12">
-                        <a href="">
-                            <div class="layui-card">
-                                <div class="layui-card-header">第1条帖子</div>
-                                <div class="layui-card-body">
-                                    内容
-                                </div>
-                                <span class="icon time" style="float: right"><i class="layui-icon layui-icon-log"> publishTime</i></span>
-                            </div>
-                        </a>
-                        <hr>
-                        <a href="">
-                            <div class="layui-card">
-                                <div class="layui-card-header">第2条帖子</div>
-                                <div class="layui-card-body">
-                                    内容
-                                </div>
-                                <span class="icon time" style="float: right"><i class="layui-icon layui-icon-log"> publishTime</i></span>
-                            </div>
-                        </a>
-                        <hr>
-                        <a href="">
-                            <div class="layui-card">
-                                <div class="layui-card-header">第3条帖子</div>
-                                <div class="layui-card-body">
-                                    内容
-                                </div>
-                                <span class="icon time" style="float: right"><i class="layui-icon layui-icon-log"> publishTime</i></span>
-                            </div>
-                        </a>
+                    <div class="layui-col-md12" id="items">
                     </div>
                 </div>
             </div>
             <div style="text-align: center;">
-                <div class="layui-laypage">
-                    <a href="#" class="layui-laypage-prev">上一页</a>
-                    <span class="layui-laypage-curr">1</span>
-                    <a href="#">2</a>
-                    <a href="#">3</a>
-                    <a href="#">4</a>
-                    <a href="#">5</a>
-                    <a href="#" class="layui-laypage-next">下一页</a>
-                </div>
+                <div id="demo7"></div>
             </div>
         </div>
     </div>
 </div>
-
 <script>
     layui.use('element', function(){
         var element = layui.element;
@@ -117,11 +79,52 @@
     }
     function loadInfo() {
         $("#myname").text(window.sessionStorage.getItem("uid"));
-        /*console.log("111111"+window.sessionStorage.getItem("uid"))*/
         $("#question").show();
     }
     window.onload = loadInfo;
 
+</script>
+<script>
+    layui.use('laypage', function(){
+        var laypage = layui.laypage;
+        var data = [];
+        data = getDate();
+        laypage.render({
+            elem: 'demo7'
+            ,count: data.length
+            ,layout: ['count', 'prev', 'page', 'next', 'limit', 'refresh', 'skip']
+            ,jump: function(obj) {
+                // console.log(obj);
+                $("#items").html("");
+                var arr = [],thisData = data.concat().splice(obj.curr*obj.limit - obj.limit, obj.limit);
+                layui.each(thisData, function(index, item){
+                    arr.push("<a href=\"\">\n" +
+                    "                            <div class=\"layui-card\">\n" +
+                    "                                 <div class=\"layui-card-header\">" + item.eTitle + "</div>\n" +
+                    "                                <div class=\"layui-card-body\">\n" + item.eContent + "</div>\n" +
+                    "                                <span class=\"icon time\" style=\"float: right\">" +
+                    "                                   <i class=\"layui-icon layui-icon-log\">\n" + String(item.createTime).replace("T", " ") + "</i>" +
+                    "                                </span>\n" +
+                    "                            </div>\n" +
+                    "                        </a><hr>\n");
+                });
+                $("#items").append(arr);
+            }
+        });
+    });
+    function getDate() {
+        var date =[];
+        $.ajax({url:"http://localhost:9999/AllEssay",
+            type:"post",
+            dataType: "json",
+            async: false,
+            contentType: false,
+            success:function(data) {
+                date = data.data;
+            }
+        });
+        return date;
+    }
 </script>
 </body>
 </html>

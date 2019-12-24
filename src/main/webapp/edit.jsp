@@ -101,11 +101,10 @@
         //创建一个编辑器
         layedit.set({
             uploadImage: {
-                url: 'http://localhost:8080/fileUpload' //接口url
+                url: 'http://localhost:9999/fileUpload' //接口url
             }
         });
         var editIndex = layedit.build('myEditor');
-
 
         //监听提交
         form.on('submit(editor)', function(data){
@@ -124,7 +123,7 @@
                     data:JSON.stringify(data),
                     success:function(data) {
                         console.log(data);
-                    }})
+                    }});
                 return false;
         })
     });
@@ -156,16 +155,13 @@
                 processData: false,
                 contentType: false,
                 success:function(result) {
-                    /*console.log(result)
-                    console.log("1111111111")*/
-                    var tagstr = ''
+                    var tagstr = '';
                     tagstr += ' <option value="">'+"请选择标签"+'</option> ';
                     for (var i=0;i<result.data.length;i++){
-                        var ops = '<option value='+result.data[i].tagId+'>'+ result.data[i].tagName +'</option> '
+                        var ops = '<option value='+result.data[i].tagId+'>'+ result.data[i].tagName +'</option> ';
                         tagstr += ops
                     }
-                    /*     console.log(tagstr)*/
-                    $("#tag").html(tagstr)
+                    $("#tag").html(tagstr);
                     form.render('select');
                 }
             })

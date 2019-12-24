@@ -11,6 +11,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.sql.Timestamp;
 import java.util.List;
 
 /**
@@ -37,6 +38,7 @@ public class EssayServiceImpl implements EssayService {
         bean.seteLike(0);
         bean.seteComment(0);
         bean.setUserId(getUid());
+        bean.setCreateTime(new Timestamp(System.currentTimeMillis()));
         return dao.saveEssay(bean);
     }
 
