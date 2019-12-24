@@ -4,6 +4,7 @@ import com.j2e.dao.tag.TagDao;
 import com.j2e.entities.TagBean;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
@@ -14,6 +15,7 @@ import java.util.List;
  * @description 实现层
  */
 @Service
+@Transactional(rollbackFor = {Exception.class})
 public class TagServiceImpl implements TagService {
 
     private TagDao tagDao;
@@ -24,7 +26,7 @@ public class TagServiceImpl implements TagService {
     }
 
     @Override
-    public List<TagBean> findTags(String keyWord) {
-        return tagDao.findTagByKeyWord(keyWord);
+    public List<TagBean> findTags() {
+        return tagDao.findTagByKeyWord();
     }
 }

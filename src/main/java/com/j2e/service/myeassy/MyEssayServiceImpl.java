@@ -4,6 +4,8 @@ import com.j2e.dao.user.UserDao;
 import com.j2e.dto.MyEassyItemDto;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+
 import java.util.List;
 
 /**
@@ -14,12 +16,13 @@ import java.util.List;
  */
 
 @Service
-public class MyEassyServicelmpl implements MyEassyService {
+@Transactional(rollbackFor = {Exception.class})
+public class MyEssayServiceImpl implements MyEssayService {
 
     private UserDao userdao;
 
     @Autowired
-    public MyEassyServicelmpl(UserDao userdao){
+    public MyEssayServiceImpl(UserDao userdao){
         this.userdao=userdao;
     }
 

@@ -9,6 +9,7 @@ import com.j2e.entities.CommentBean;
 import com.opensymphony.xwork2.ActionContext;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.sql.Timestamp;
 import java.util.List;
@@ -20,6 +21,7 @@ import java.util.List;
  * @description 实现类
  */
 @Service
+@Transactional(rollbackFor = {Exception.class})
 public class CommentServiceImpl implements CommentService {
 
     private CommentDao dao;

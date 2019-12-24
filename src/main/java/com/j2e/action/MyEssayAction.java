@@ -2,7 +2,7 @@ package com.j2e.action;
 
 
 import com.j2e.dto.MyEassyItemDto;
-import com.j2e.service.myeassy.MyEassyService;
+import com.j2e.service.myeassy.MyEssayService;
 import org.apache.struts2.convention.annotation.Action;
 import org.apache.struts2.convention.annotation.InterceptorRef;
 import org.apache.struts2.convention.annotation.Result;
@@ -18,14 +18,14 @@ import java.util.List;
  */
 
 @Component
-public class MyEassyAction extends BaseAction<List<MyEassyItemDto>>{
+public class MyEssayAction extends BaseAction<List<MyEassyItemDto>>{
 
     private static final long serialVersionUID = 7669890634755728250L;
 
-    private MyEassyService service;
+    private MyEssayService service;
 
     @Autowired
-    public MyEassyAction(MyEassyService service){
+    public MyEssayAction(MyEssayService service){
         this.service=service;
     }
 

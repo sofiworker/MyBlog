@@ -1,6 +1,5 @@
 package com.j2e.service.essay;
 
-import com.j2e.dto.EditDto;
 import com.j2e.entities.EssayBean;
 
 import java.util.List;
@@ -13,11 +12,13 @@ import java.util.List;
  */
 public interface EssayService {
 
-    boolean saveEssay(EditDto dto);
+    boolean saveEssay(EssayBean dto);
 
     void updateEssay(EssayBean essay);
 
     List<EssayBean> AllEssay();
 
     List<EssayBean> searchEssay(String str);
+
+    void deleteEssayById(String eId);
 }

@@ -4,6 +4,7 @@ import com.j2e.dao.user.UserDao;
 import com.j2e.entities.UserBean;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 /**
  * @author sofiworker
@@ -12,6 +13,7 @@ import org.springframework.stereotype.Service;
  * @description 登录服务页面
  */
 @Service
+@Transactional(rollbackFor = {Exception.class})
 public class LoginServiceImpl implements LoginService{
 
     private UserDao mUserDao;

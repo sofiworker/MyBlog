@@ -21,8 +21,8 @@ public class LoginInterceptor extends AbstractInterceptor {
 
     @Override
     public String intercept(ActionInvocation invocation) throws Exception {
-        Object action = invocation.getAction();
-        log.debug(action.getClass().getSimpleName());
+//        Object action = invocation.getAction();
+//        log.debug(action.getClass().getSimpleName());
         UserDto user = (UserDto) ActionContext.getContext().getSession().get(Constants.LOGIN_USER);
         if (user == null) {
             return "noLogin";

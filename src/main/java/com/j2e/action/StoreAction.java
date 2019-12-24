@@ -1,7 +1,8 @@
 package com.j2e.action;
 
 import com.j2e.dto.StoreDto;
-import com.j2e.service.store.StoreListServicelmpl;
+import com.j2e.service.store.StoreListService;
+import com.j2e.service.store.StoreListServiceImpl;
 import org.apache.struts2.convention.annotation.Action;
 import org.apache.struts2.convention.annotation.InterceptorRef;
 import org.apache.struts2.convention.annotation.Result;
@@ -20,16 +21,16 @@ import java.util.List;
 public class StoreAction extends BaseAction<List<StoreDto>> {
 
     private static final long serialVersionUID = -9096916428885972458L;
-    private StoreListServicelmpl service;
+    private StoreListService service;
 
     @Autowired
-    public StoreAction(StoreListServicelmpl service){
+    public StoreAction(StoreListService service){
         this.service=service;
     }
 
     @Action(value = "/mystore", interceptorRefs={@InterceptorRef("loginInterceptor")},
             results ={@Result(name = "success", type = "json", params = {"root", "data"})})
-    public String mystore(){
+    public String myStore(){
         data.setData(service.findstore());
         return SUCCESS;
     }

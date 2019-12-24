@@ -66,6 +66,7 @@
     </div>
 </footer>
 <script>
+
     var $ = layui.$;
     function form2JsonString(formId) {
         var paramArray = $('#' + formId).serializeArray();

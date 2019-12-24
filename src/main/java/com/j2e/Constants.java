@@ -13,7 +13,7 @@ public class  Constants {
      * */
     public static final String LOGIN_USER = "loginUser";
 
-    public static final String PORT = "8080";
+    public static final String PORT = "9999";
 
     public static final String LOGIN_FAIL = "loginFail";
     public static final String REGISTER_FAIL = "registerFail";

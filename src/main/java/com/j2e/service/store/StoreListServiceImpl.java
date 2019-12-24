@@ -5,6 +5,8 @@ import com.j2e.dao.user.UserDao;
 import com.j2e.dto.StoreDto;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+
 import java.util.List;
 
 /**
@@ -15,12 +17,13 @@ import java.util.List;
  */
 
 @Service
-public class StoreListServicelmpl implements StoreListService{
+@Transactional(rollbackFor = {Exception.class})
+public class StoreListServiceImpl implements StoreListService{
 
     private UserDao userdao;
 
     @Autowired
-    public StoreListServicelmpl(UserDao userdao){
+    public StoreListServiceImpl(UserDao userdao){
         this.userdao=userdao;
     }
 

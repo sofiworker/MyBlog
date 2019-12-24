@@ -19,4 +19,6 @@ public interface EssayDao {
     List<EssayBean> AllEssay();
 
     List<EssayBean> searchEssay(String str);
+
+    void deleteEssayById(String eId);
 }

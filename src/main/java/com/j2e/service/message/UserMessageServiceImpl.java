@@ -7,6 +7,7 @@ import com.j2e.entities.UserBean;
 import com.opensymphony.xwork2.ActionContext;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 /**
  * @author mynameexit
@@ -16,11 +17,12 @@ import org.springframework.stereotype.Service;
  */
 
 @Service
-public class UserMessageServicelmpl implements UserMessageService {
+@Transactional(rollbackFor = {Exception.class})
+public class UserMessageServiceImpl implements UserMessageService {
     private UserDao mUserDao;
 
     @Autowired
-    public UserMessageServicelmpl(UserDao dao){
+    public UserMessageServiceImpl(UserDao dao){
         this.mUserDao = dao;
     }
 
