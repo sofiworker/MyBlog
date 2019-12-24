@@ -52,15 +52,7 @@
                 </span>
             </div>
             <hr style="margin: 20px 0">
-            <!--<div class="list-group-item">
-                <div class="item">
-                    <a href="#">
-                        <div class="list-group-item-info">
 
-                        </div>
-                    </a>
-                </div>
-            </div>-->
             <div style="padding: 20px; background-color: #F2F2F2;">
                 <div class="layui-row layui-col-space15">
                     <div class="layui-col-md12">

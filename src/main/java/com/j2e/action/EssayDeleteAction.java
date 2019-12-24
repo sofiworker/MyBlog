@@ -33,8 +33,7 @@ public class EssayDeleteAction extends BaseAction<String>{
         this.service = service;
     }
 
-//    interceptorRefs = {@InterceptorRef("loginInterceptor")},
-    @Action(value = "/delete",
+    @Action(value = "/delete", interceptorRefs = {@InterceptorRef("loginInterceptor")},
             results ={@Result(name = "success", type = "json", params = {"root", "data"}),
                     @Result(name = "error", type = "json", params = {"root", "data"})})
     public String delete(){

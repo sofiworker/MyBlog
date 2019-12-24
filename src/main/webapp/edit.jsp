@@ -3,7 +3,7 @@
   Author: sofiworker
   Version: 1.0.0
   Date: 2019/12/8 22:10
-  Description: 编辑文章页面，支持markdown
+  Description: 编辑文章页面
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
@@ -17,7 +17,6 @@
     <script src="js/bootstrap-select.js"></script>
     <link rel="stylesheet" href="layui/css/layui.css"  media="all">
     <script type="text/javascript" src="layui/layui.all.js"></script>
-    <script type="text/javascript" src="layui/layui.js" charset="utf-8"></script>
 </head>
 <body>
 <div class="layui-layout layui-layout-admin" style="height: 65px;">
@@ -99,11 +98,10 @@
             ,layer = layui.layer
             ,layedit = layui.layedit;
 
-
         //创建一个编辑器
         layedit.set({
             uploadImage: {
-                url: 'http://localhost:9999/fileUpload' //接口url
+                url: 'http://localhost:8080/fileUpload' //接口url
             }
         });
         var editIndex = layedit.build('myEditor');
@@ -118,10 +116,7 @@
                         "eContent":layedit.getContent(editIndex),
                         "tagId":parseInt(fm_tag.tag.value)
                     }
-                }
-                console.log("11111111111111111111111111111111111111")
-                console.log(data)
-                console.log("222222222222222222222222222222")
+                };
                 $.ajax({url:"/edit",
                     type:"post",
                     dataType: "json",

@@ -26,5 +26,8 @@
         <property name="tagId">
             <column name="tag_id" sql-type="int(11)"/>
         </property>
+        <property name="createTime">
+            <column name="create_time" sql-type="timestamp(6)"/>
+        </property>
     </class>
 </hibernate-mapping>

@@ -10,6 +10,7 @@ import org.apache.struts2.convention.annotation.Action;
 import org.apache.struts2.convention.annotation.Result;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Controller;
 
 /**
  * @author sofiworker
@@ -17,7 +18,7 @@ import org.springframework.stereotype.Component;
  * @date 2019/12/5 20:40
  * @description 登录action
  */
-@Component
+@Controller
 @Log4j2
 public class LoginAction extends BaseAction<UserDto> {
 

@@ -1,12 +1,13 @@
 package com.j2e.entities;
 
 import javax.persistence.*;
+import java.sql.Timestamp;
 
 /**
  * @author sofiworker
  * @version 1.0.0
- * @date 2019/12/13 22:55
- * @description 文章实体类
+ * @date 2019/12/24 15:03
+ * @description TODO
  */
 @Entity
 @Table(name = "essay", schema = "myblog", catalog = "")
@@ -18,6 +19,7 @@ public class EssayBean {
     private int eComment;
     private String userId;
     private int tagId;
+    private Timestamp createTime;
 
     @Id
     @Column(name = "e_id", nullable = false, length = 32)
@@ -89,20 +91,31 @@ public class EssayBean {
         this.tagId = tagId;
     }
 
+    @Basic
+    @Column(name = "create_time", nullable = false)
+    public Timestamp getCreateTime() {
+        return createTime;
+    }
+
+    public void setCreateTime(Timestamp createTime) {
+        this.createTime = createTime;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
 
-        EssayBean essayBean = (EssayBean) o;
+        EssayBean bean = (EssayBean) o;
 
-        if (eLike != essayBean.eLike) return false;
-        if (eComment != essayBean.eComment) return false;
-        if (tagId != essayBean.tagId) return false;
-        if (eId != null ? !eId.equals(essayBean.eId) : essayBean.eId != null) return false;
-        if (eTitle != null ? !eTitle.equals(essayBean.eTitle) : essayBean.eTitle != null) return false;
-        if (eContent != null ? !eContent.equals(essayBean.eContent) : essayBean.eContent != null) return false;
-        if (userId != null ? !userId.equals(essayBean.userId) : essayBean.userId != null) return false;
+        if (eLike != bean.eLike) return false;
+        if (eComment != bean.eComment) return false;
+        if (tagId != bean.tagId) return false;
+        if (eId != null ? !eId.equals(bean.eId) : bean.eId != null) return false;
+        if (eTitle != null ? !eTitle.equals(bean.eTitle) : bean.eTitle != null) return false;
+        if (eContent != null ? !eContent.equals(bean.eContent) : bean.eContent != null) return false;
+        if (userId != null ? !userId.equals(bean.userId) : bean.userId != null) return false;
+        if (createTime != null ? !createTime.equals(bean.createTime) : bean.createTime != null) return false;
 
         return true;
     }
@@ -116,6 +129,7 @@ public class EssayBean {
         result = 31 * result + eComment;
         result = 31 * result + (userId != null ? userId.hashCode() : 0);
         result = 31 * result + tagId;
+        result = 31 * result + (createTime != null ? createTime.hashCode() : 0);
         return result;
     }
 }
