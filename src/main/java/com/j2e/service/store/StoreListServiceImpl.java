@@ -31,4 +31,5 @@ public class StoreListServiceImpl implements StoreListService{
     public List<StoreDto> findstore(){
         return userdao.findStore();
     }
+
 }

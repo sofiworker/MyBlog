@@ -97,6 +97,7 @@ public class UserDaoImpl implements UserDao {
     public List<StoreDto> findStore(){
         return getStore();
     }
+
     public List<StoreDto> getStore(){
         UserDto user=(UserDto) ActionContext.getContext().getSession().get(Constants.LOGIN_USER);
         List<StoreBean> storelist= (List<StoreBean>) mTemplate.find("from StoreBean where sUid=" + user.getUid());
@@ -104,6 +105,9 @@ public class UserDaoImpl implements UserDao {
         for (StoreBean storebean : storelist){
             StoreDto item=new StoreDto();
             EssayBean essay=mTemplate.get(EssayBean.class,storebean.getsEid());
+            if (essay==null){
+                continue;
+            }
             UserBean userbean=mTemplate.get(UserBean.class,essay.getUserId());
             item.setUid(userbean.getUid());
             item.setUserName(userbean.getUsername());
@@ -114,4 +118,5 @@ public class UserDaoImpl implements UserDao {
         }
         return store;
     }
+
 }
