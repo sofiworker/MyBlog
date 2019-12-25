@@ -3,6 +3,7 @@ package com.j2e.service.essay;
 import cn.hutool.core.util.IdUtil;
 import com.j2e.Constants;
 import com.j2e.dao.essay.EssayDao;
+import com.j2e.dto.EssayDto;
 import com.j2e.dto.UserDto;
 import com.j2e.entities.EssayBean;
 import com.opensymphony.xwork2.ActionContext;
@@ -65,5 +66,10 @@ public class EssayServiceImpl implements EssayService {
     @Override
     public void deleteEssayById(String eId) {
         dao.deleteEssayById(eId);
+    }
+
+    @Override
+    public EssayDto getEssay(String str) {
+        return dao.getEssay(str);
     }
 }
