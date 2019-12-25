@@ -19,6 +19,15 @@
     <script type="text/javascript" src="layui/layui.all.js"></script>
     <script type="text/javascript" src="layui/layui.js" charset="utf-8"></script>
     <link rel="stylesheet" href="css/bootstrap.min.css">
+    <style>
+        .show{
+            overflow: hidden;
+            text-overflow: ellipsis;
+            display: -webkit-box;
+            -webkit-box-orient: vertical;
+            -webkit-line-clamp: 3;
+        }
+    </style>
 </head>
 <body>
 <div class="layui-layout layui-layout-admin" style="height: 65px">
@@ -79,39 +88,61 @@
         var element = layui.element;
 
     });
-
     function loadInfo() {
+        a();
+        b();
+    }
 
-        $.ajax({url:"/myessay",
-            type:"post",
+    function a() {
+        $.ajax({
+            url: "/myessay",
+            type: "post",
             dataType: "json",
-            contentType:"application/json;charset=UTF-8",
-            data:JSON.stringify({}),
-            success:function(data) {
-                var text="";
-                data.data.forEach(function(item){
-                    text+='<div class="more" onclick="intoessay(`'+item.eid+'`)">'+
-                        '<div class="layui-card">'+
-                        '<div class="layui-card-header">'+item.etitle+'</div>'+
-                        '<div class="layui-card-body"><div class="layui-col-md9">&nbsp;&nbsp;&nbsp;&nbsp;'+item.econtent+
+            contentType: "application/json;charset=UTF-8",
+            data: JSON.stringify({}),
+            success: function (data) {
+                var text = "";
+                data.data.forEach(function (item) {
+                    var arr = item.econtent.split("\"");
+                    var imgurl = c(arr);
+                    text += '<div class="more" onclick="intoessay(`' + item.eid + '`)">' +
+                        '<div class="layui-card">' +
+                        '<div class="layui-card-header" ><h2>' + item.etitle + '</h2></div>' +
+                        '<div class="layui-card-body"><div class="layui-col-md9 show">&nbsp;&nbsp;&nbsp;&nbsp;' + String(item.econtent).replace("img", "") +
                         '</div>' +
-                        '<div class="layui-col-md3">' +
-                        '<img style=" display:block;position:relative;margin:auto;width: 100px;height: 100px" src="http://192.168.161.1:9999/upload/f8161ce46f5d422281396b0d5629d2c3.jpg">' +
-                        '</div><div class="layui-row"><br>' +
-                        '<span class="glyphicon glyphicon-heart" style="margin: auto;color: indianred">:'+item.elike+'</span>'+
-                        '<span style="float: right;color: #00a8c6">tag:'+item.tagname+'</span></div><hr></div>'+
-                        '<span class="icon time" style="float: right"><i class="layui-icon layui-icon-log">'+
-                        String(item.createTime).replace("T"," ")+'</i></span>'+
+                        '<div class="layui-col-md3">';
+                    if (imgurl != null) {
+                        text += '<img style=" display:block;position:relative;margin:auto;width: 100px;height: 100px" src="' + imgurl + '">';
+                    }
+                    text += '</div><div class="layui-row"><br>' +
+                        '<span class="glyphicon glyphicon-heart" style="margin: auto;color: indianred">:' + item.elike + '</span>' +
+                        '<span style="float: right;color: #00a8c6">tag:' + item.tagname + '</span></div><hr></div>' +
+                        '<span class="icon time" style="float: right"><i class="layui-icon layui-icon-log">' +
+                        String(item.createTime).replace("T", " ") + '</i></span>' +
                         '</div></div><hr>';
                 })
                 $(".essay").html(text);
                 console.log(data);
             },
-            error:function (error) {
+            error: function (error) {
                 console.log(error.statusText)
             }
-            })
+        })
+    }
 
+    function c(arr) {
+
+        var pattern = /^((https|http|ftp|rtsp|mms)?:\/\/)[^\s]+/;
+        var url=null;
+        arr.forEach(function (src) {
+            if(src.match(pattern)){
+                url= src;
+            }
+        })
+        return url;
+    }
+
+    function b(){
         $.ajax({url:"/mystore",
             type:"post",
             dataType: "json",
@@ -120,14 +151,18 @@
             success:function(data) {
                 var text="";
                 data.data.forEach(function(item){
+                    var arr=item.econtent.split("\"");
+                    var imgurl=c(arr);
                     text+='<div class="more" onclick="intoessay(`'+item.eid+'`)">'+
                         '<div class="layui-card">'+
                         '<div class="layui-card-header">'+item.etitle+'</div>'+
                         '<div class="layui-card-body"><div class="layui-col-md9">&nbsp;&nbsp;&nbsp;&nbsp;'+item.econtent+
                         '</div>' +
-                        '<div class="layui-col-md3">' +
-                        '<img style=" display:block;position:relative;margin:auto;width: 100px;height: 100px" src="http://192.168.161.1:9999/upload/f8161ce46f5d422281396b0d5629d2c3.jpg">' +
-                        '</div><div class="layui-row"><br>' +
+                        '<div class="layui-col-md3">';
+                    if (imgurl!=null){
+                        text+='<img style=" display:block;position:relative;margin:auto;width: 100px;height: 100px" src="'+imgurl+'">'
+                    }
+                    text+='</div><div class="layui-row"><br>' +
                         '<span class="glyphicon glyphicon-user" style="margin: auto;color: #75787b">:'+item.userName+'</span>'+
                         '<span style="float: right;color: #00a8c6">tag:'+item.tagname+'</span></div><hr></div>'+
                         '<span class="icon time" style="float: right"><i class="layui-icon layui-icon-log">'+
@@ -143,7 +178,9 @@
             }
         })
     }
+
     window.onload = loadInfo;
+
     function intoessay(id){
         console.log(id)
     }
