@@ -12,5 +12,6 @@
 <a href="Home.jsp">主页</a>
 <a href="edit.jsp">文章编辑</a>
 <a href="fileUpload.jsp">图片上传测试</a>
+<a href="Answer.jsp">查看博客</a>
 </body>
 </html>

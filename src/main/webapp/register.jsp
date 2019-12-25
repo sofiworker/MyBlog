@@ -36,7 +36,6 @@
         <div class="sign-content popup-in-content">
             <div class="popup-in-txt">
                 <h2>注册</h2>
-
                 <div class="row">
                     <div class="col-sm-12">
                         <div class="signin-form">
@@ -65,12 +64,6 @@
                                     <label for="signin_form6">个人签名</label>
                                     <input type="text" class="form-control" id="signin_form6"  name="sign" placeholder="个人签名">
                                 </div><!--/.form-group -->
-                                <div class="form-group">
-                                    <label for="id_head" >头像</label>
-                                    <label for="id_head" style="margin-left: 15px"><img id="head-img" src="image/work.jpg" alt="" style="height:80px;width:80px"></label>
-                                    <input accept="image/*" type="file" id="id_head" name="photo" style="display: none" onclick="avatar()">
-                                    <span class="help-block">点击图片更换头像</span>
-                                </div>
                                 <div class="form-group" style="display: none">
                                     <input type="text" class="form-control"   name="type" value="0">
                                 </div><!--/.form-group -->
@@ -78,6 +71,13 @@
                                     <input type="date" class="form-control"   name="createtime" id="time" value="">
                                 </div><!--/.form-group -->
                             </form><!--/form -->
+                            <div class="layui-upload">
+                                <label>头像</label>
+                                <div class="layui-upload-list" id="head">
+                                    <img class="layui-upload-img" id="headImg">
+                                    <p id="demoText"></p>
+                                </div>
+                            </div>
                         </div><!--/.signin-form -->
                     </div><!--/.col -->
                 </div><!--/.row -->
@@ -114,6 +114,30 @@
     </div><!--/.container -->
 </section><!--/.signin -->
 <script>
+    layui.use('upload', function() {
+        var $ = layui.jquery
+            , upload = layui.upload;
+
+        //普通图片上传
+        var uploadInst = upload.render({
+            elem: '#head'
+            , url: 'http://localhost:9999/headImg'
+            , before: function (obj) {
+                obj.preview(function (index, file, result) {
+                    $('#headImg').attr('src', result); //图片链接（base64）
+                    $('#headImg').attr({width:'80',height:'80'});
+                });
+            }
+            , done: function (res) {
+                console.log(res)
+                //如果上传失败
+                if (res.code > 0) {
+                    return layer.msg('上传失败');
+                }
+                //上传成功
+            }
+        });
+    })
     function avatar() {
         $("#id_head").change(function () {
             // 1. 创建一个读取文件的对象
@@ -124,6 +148,20 @@
             fileReader.readAsDataURL(this.files[0]);
             fileReader.onload = function () {
                 $("#head-img").attr("src", fileReader.result);
+                let formdata = new FormData()
+                formdata.append('file',fileReader.result)
+                console.log(formdata+"000000000000000000000000000000000")
+                console.log(formdata.get('file'))
+                $.ajax({url:"http://localhost:9999/headImg",
+                    type:"post",
+                    processData: false,
+                    contentType: false,
+                    dataType:"json",
+                    data: formdata,
+                    success:function(data) {
+                        console.log(data);
+                    }
+                })
             };
         });
     }
@@ -137,12 +175,11 @@
         return JSON.stringify(jsonObj);
     }
     function register(){
-        console.log('11111111111111111');
         getTime()
         var userBean  = eval("("+form2JsonString("register")+")");
-        console.log(userBean)
+        /*console.log(userBean)*/
         var data = {userBean}
-        console.log(data)
+        /*console.log(data)*/
         $.ajax({url:"http://localhost:9999/register",
             type:"post",
             dataType: "json",
@@ -161,7 +198,6 @@
         var mon=date.getMonth()+1;
         var da=date.getDate();
         var mytime=year+"-"+mon+"-"+da;
-        console.log("1111111111111111111111"+mytime)
         $("#time").val(mytime)
     }
 </script>

@@ -134,22 +134,8 @@
     }
     function loadInfo() {
         $(".myname").val(window.sessionStorage.getItem("uid"));
-        geteid();
     }
     window.onload = loadInfo;
-
-    function geteid(){
-        var eid=location.search.split("=")[1];
-        $.ajax({url:"/getEssay",
-            type:"post",
-            dataType: "json",
-            contentType:"application/json;charset=UTF-8",
-            data:JSON.stringify({"str":eid}),
-            success:function(data) {
-                console.log(data);
-            }
-        })
-    }
 
 
 </script>
