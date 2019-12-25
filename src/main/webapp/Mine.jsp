@@ -115,11 +115,11 @@
                         text += '<img style=" display:block;position:relative;margin:auto;width: 100px;height: 100px" src="' + imgurl + '">';
                     }
                     text += '</div><div class="layui-row"><br>' +
-                        '<span class="glyphicon glyphicon-heart" style="margin: auto;color: indianred">:' + item.elike + '</span>' +
-                        '<span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: #00a8c6">tag:' + item.tagname + '</span>' +
-                        '<span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="glyphicon glyphicon-pencil" style="color: #3F7F7F">:' + item.ecomment + '</span>'+
+                        '<span class="glyphicon glyphicon-heart" style="color: indianred">:' + item.elike + '</span>' +
+                        '<span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="glyphicon glyphicon-tasks" style="color: #5cbfcd">:' + item.tagname + '</span>' +
+                        '<span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="glyphicon glyphicon-pencil" style="color: #3F7F7F">:' + item.ecomment + '</span>' +
                         '</div><hr></div>' +
-                        '<span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="icon time" style="float: right"><i class="layui-icon layui-icon-log">' +
+                        '<span class="icon time" style="float: right"><i class="layui-icon layui-icon-log">' +
                         String(item.createTime).replace("T", " ") + '</i></span>' +
                         '</div></div><hr>';
                 })
@@ -165,8 +165,8 @@
                         text+='<img style=" display:block;position:relative;margin:auto;width: 100px;height: 100px" src="'+imgurl+'">'
                     }
                     text+='</div><div class="layui-row"><br>' +
-                        '<span class="glyphicon glyphicon-user" style="color: #75787b">:'+item.userName+'</span>'+
-                        '<span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="glyphicon glyphicon-tasks" style="color: #00a8c6">:'+item.tagname+'</span></div><hr></div>'+
+                        '<span class="glyphicon glyphicon-user" style="margin: auto;color: #75787b">:'+item.userName+'</span>'+
+                        '<span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="glyphicon glyphicon-tasks" style="color: #5cbfcd">:' + item.tagname + '</span>' +
                         '<span class="icon time" style="float: right"><i class="layui-icon layui-icon-log">'+
                         String(item.createTime).replace("T"," ")+'</i></span>'+
                         '</div></div><hr>';
