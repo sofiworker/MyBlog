@@ -13,6 +13,7 @@ import org.springframework.orm.hibernate5.HibernateTemplate;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -43,13 +44,47 @@ public class EssayDaoImpl implements EssayDao {
     }
 
     @Override
-    public List<EssayBean> AllEssay() {
-        return (List<EssayBean>) template.find("from EssayBean");
+    public List<EssayDto> AllEssay() {
+        List<EssayDto> re=new ArrayList<>();
+        List<EssayBean> list=(List<EssayBean>) template.find("from EssayBean");
+        for(EssayBean essay :list){
+            UserBean user=template.get(UserBean.class,essay.getUserId());
+            System.out.println(user.getUsername());
+            TagBean tag=template.get(TagBean.class,essay.getTagId());
+            EssayDto ans=new EssayDto();
+            ans.setEComment(essay.geteComment());
+            ans.setEContent(essay.geteContent());
+            ans.setEId(essay.geteId());
+            ans.setELike(essay.geteLike());
+            ans.setETitle(essay.geteTitle());
+            ans.setUserName(user.getUsername());
+            ans.setTagName(tag.getTagName());
+            ans.setCreateTime(essay.getCreateTime());
+            re.add(ans);
+        }
+        return re;
     }
 
     @Override
-    public List<EssayBean> searchEssay(String str) {
-        return (List<EssayBean>) template.find("from EssayBean where eTitle like ?0 or eContent like  ?1","%"+str+"%","%"+str+"%");
+    public List<EssayDto> searchEssay(String str) {
+        List<EssayDto> re=new ArrayList<>();
+        List<EssayBean> list=(List<EssayBean>) template.find("from EssayBean where eTitle like ?0 or eContent like  ?1","%"+str+"%","%"+str+"%");
+        for(EssayBean essay :list){
+            UserBean user=template.get(UserBean.class,essay.getUserId());
+            System.out.println(user.getUsername());
+            TagBean tag=template.get(TagBean.class,essay.getTagId());
+            EssayDto ans=new EssayDto();
+            ans.setEComment(essay.geteComment());
+            ans.setEContent(essay.geteContent());
+            ans.setEId(essay.geteId());
+            ans.setELike(essay.geteLike());
+            ans.setETitle(essay.geteTitle());
+            ans.setUserName(user.getUsername());
+            ans.setTagName(tag.getTagName());
+            ans.setCreateTime(essay.getCreateTime());
+            re.add(ans);
+        }
+        return re;
     }
 
     @Override

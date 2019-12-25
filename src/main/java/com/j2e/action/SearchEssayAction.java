@@ -1,5 +1,6 @@
 package com.j2e.action;
 
+import com.j2e.dto.EssayDto;
 import com.j2e.entities.EssayBean;
 import com.j2e.service.essay.EssayService;
 import lombok.extern.log4j.Log4j2;
@@ -11,7 +12,7 @@ import org.springframework.stereotype.Component;
 import java.util.List;
 @Component
 @Log4j2
-public class SearchEssayAction extends BaseAction<List<EssayBean>> {
+public class SearchEssayAction extends BaseAction<List<EssayDto>> {
 
     private static final long serialVersionUID = 5452894593134968948L;
     private EssayService service;

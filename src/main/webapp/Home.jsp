@@ -14,6 +14,7 @@
     <script src="js/bootstrap-select.js"></script>
     <script type="text/javascript" src="layui/layui.all.js"></script>
     <script type="text/javascript" src="layui/layui.js"></script>
+    <link rel="stylesheet" href="css/bootstrap.min.css">
 </head>
 <body>
 <div class="layui-layout layui-layout-admin" style="height: 65px;">
@@ -29,13 +30,14 @@
                 <button type="button" class="layui-btn layui-btn-primary">搜索</button>
             </li>
             <li class="layui-nav-item">
-                <a id="myname"></a>
+                <a id="myname" href="Mine.jsp"></a>
             </li>
-            <li class="layui-nav-item" style="display: none" id="question"><a href="../Login/login.html">提问</a></li>
+            <li class="layui-nav-item" style="display: none" id="question"><a href="edit.jsp">提问</a></li>
             <li class="layui-nav-item"><a href="../Login/login.html">退出</a></li>
         </ul>
     </div>
 </div>
+<div class="layui-container">
 <div class="layui-fluid">
     <div class="layui-row">
         <div class="layui-col-md12">
@@ -65,6 +67,7 @@
         </div>
     </div>
 </div>
+</div>>
 <script>
     layui.use('element', function(){
         var element = layui.element;
@@ -98,20 +101,43 @@
                 $("#items").html("");
                 var arr = [],thisData = data.concat().splice(obj.curr*obj.limit - obj.limit, obj.limit);
                 layui.each(thisData, function(index, item){
-                    arr.push("<a href=\"\">\n" +
-                    "                            <div class=\"layui-card\">\n" +
-                    "                                 <div class=\"layui-card-header\">" + item.eTitle + "</div>\n" +
-                    "                                <div class=\"layui-card-body\">\n" + item.eContent + "</div>\n" +
-                    "                                <span class=\"icon time\" style=\"float: right\">" +
-                    "                                   <i class=\"layui-icon layui-icon-log\">\n" + String(item.createTime).replace("T", " ") + "</i>" +
-                    "                                </span>\n" +
-                    "                            </div>\n" +
-                    "                        </a><hr>\n");
+                    var text="";
+                    var content=item.eContent.split("\"");
+                    var imgurl=c(content);
+                    text += '<div class="more" onclick="intoessay(`' + item.eId + '`)">' +
+                        '<div class="layui-card">' +
+                        '<div class="layui-card-header" ><h2>' + item.eTitle + '</h2></div>' +
+                        '<div class="layui-card-body"><div class="layui-col-md9 show">&nbsp;&nbsp;&nbsp;&nbsp;' + String(item.eContent).replace("img", "") +
+                        '</div>' +
+                        '<div class="layui-col-md3">';
+                    console.log(imgurl)
+                    if (imgurl != null) {
+                        text += '<img style=" display:block;position:relative;margin:auto;width: 100px;height: 100px" src="' + imgurl + '">';
+                    }
+                    text += '</div><div class="layui-row"><br>' +
+                        '<span class="glyphicon glyphicon-heart" style="margin: auto;color: indianred">:' + item.eLike + '</span>' +
+                        '<span style="float: right;color: #00a8c6">评论:' + item.eComment + '</span></div><hr></div>' +
+                        '<span class="icon time" style="float: right"><i class="layui-icon layui-icon-log">' +
+                        String(item.createTime).replace("T", " ") + '</i></span>' +
+                        '</div></div><hr>';
+                    arr.push(text);
                 });
-                $("#items").append(arr);
+                $("#items").html(arr);
             }
         });
     });
+
+    function c(content) {
+        var pattern = /^((https|http|ftp|rtsp|mms)?:\/\/)[^\s]+/;
+        var url;
+        content.forEach(function (src) {
+            if(src.match(pattern)){
+                url=src;
+            }
+        })
+        return url;
+    }
+
     function getDate() {
         var date =[];
         $.ajax({url:"http://localhost:9999/AllEssay",
@@ -124,6 +150,10 @@
             }
         });
         return date;
+    }
+
+    function intoessay(id){
+        console.log(id)
     }
 </script>
 </body>

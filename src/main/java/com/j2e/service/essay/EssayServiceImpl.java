@@ -54,12 +54,12 @@ public class EssayServiceImpl implements EssayService {
     }
 
     @Override
-    public List<EssayBean> AllEssay() {
+    public List<EssayDto> AllEssay() {
         return dao.AllEssay();
     }
 
     @Override
-    public List<EssayBean> searchEssay(String str) {
+    public List<EssayDto> searchEssay(String str) {
         return dao.searchEssay(str);
     }
 
