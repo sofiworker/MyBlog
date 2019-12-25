@@ -35,8 +35,6 @@ public class FileUploadAction extends ActionSupport {
     private String fileContentType;
     private String fileFileName;
     private String newName;
-    private int width;
-    private int height;
 
     public String getFileContentType() {
         return fileContentType;
@@ -62,59 +60,12 @@ public class FileUploadAction extends ActionSupport {
         this.file = file;
     }
 
-    public int getWidth() {
-        return width;
-    }
-
-    public void setWidth(int width) {
-        this.width = width;
-    }
-
-    public int getHeight() {
-        return height;
-    }
-
-    public void setHeight(int height) {
-        this.height = height;
-    }
-
     public String fileUpload() throws Exception{
         newName = createNewName();
         ServletActionContext.getResponse().setContentType("application/json;charset=UTF-8");
         ServletActionContext.getResponse().setCharacterEncoding("UTF-8");
-        if (width > 0 && height > 0){
-            saveModifyImg();
-        }else {
-            saveOriginalImg();
-        }
+        saveOriginalImg();
         return  NONE;
-    }
-
-    private void saveModifyImg() throws Exception {
-        InputStream imgStream = new FileInputStream(file);
-        Image src = ImageIO.read(imgStream);
-        BufferedImage img = new BufferedImage(width, height, BufferedImage.TYPE_INT_ARGB);
-        Graphics2D g = img.createGraphics();
-        g.drawImage(src, 0, 0, width, height, null);
-        ByteArrayOutputStream out = new ByteArrayOutputStream();
-        ImageIO.write(img, getSuffixName(), out);
-        byte[] b = out.toByteArray();
-        out.close();
-        String uploadPath = ServletActionContext.getServletContext().getRealPath("/upload/modify/");
-        if (!new File(uploadPath).exists()){
-            if (new File(uploadPath).mkdir()) {
-                File toFile = new File(uploadPath + File.separator + newName);
-                FileImageOutputStream outputStream = new FileImageOutputStream(toFile);
-                outputStream.write(b, 0, b.length);
-                outputStream.close();
-                String url = getUrl();
-                ImgDto data = new ImgDto();
-                data.setSrc(url);
-                data.setTitle(newName);
-                this.data.setData(data);
-                ServletActionContext.getResponse().getWriter().print(JSON.toJSONString(this.data));
-            }
-        }
     }
 
     private void saveOriginalImg() throws Exception{
@@ -125,6 +76,7 @@ public class FileUploadAction extends ActionSupport {
         ImgDto data = new ImgDto();
         data.setSrc(url);
         data.setTitle(newName);
+        this.data.setCode(0);
         this.data.setData(data);
         ServletActionContext.getResponse().getWriter().print(JSON.toJSONString(this.data));
     }
@@ -139,10 +91,6 @@ public class FileUploadAction extends ActionSupport {
 
     private String getUrl() throws UnknownHostException{
         String host = InetAddress.getLocalHost().getHostAddress();
-        if (width > 0 && height > 0){
-            return "http://"+host + ":" + Constants.PORT + "/upload/modify/" + newName;
-        }else {
-            return "http://"+host + ":" + Constants.PORT + "/upload/original/" + newName;
-        }
+        return "http://"+host + ":" + Constants.PORT + "/upload/original/" + newName;
     }
 }

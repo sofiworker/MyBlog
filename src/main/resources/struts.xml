@@ -21,5 +21,8 @@
 
     <package name="file" extends="struts-default" namespace="/">
         <action name="fileUpload" class="com.j2e.action.FileUploadAction" method="fileUpload"/>
+        <action name="headImg" class="com.j2e.action.HeadImgAction" method="headImg"/>
+        <action name="commentImg" class="com.j2e.action.CommentImgAction" method="commentImg"/>
+        <action name="essayImg" class="com.j2e.action.EssayImgAction" method="essayImg"/>
     </package>
 </struts>

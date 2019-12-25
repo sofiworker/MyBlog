@@ -41,7 +41,6 @@ public class CommentListAction extends BaseAction<List<CommentItemDto>>{
             results ={@Result(name = "success", type = "json", params = {"root", "data"}),
                     @Result(name = "error", type = "json", params = {"root", "data"})})
     public String commentEssay(){
-        System.out.println(essayId);
         if (!StrUtil.isEmpty(essayId)) {
             data.setData(service.getEssayCommentList(essayId));
             return SUCCESS;
