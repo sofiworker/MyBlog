@@ -88,6 +88,7 @@ public class UserDaoImpl implements UserDao {
             item.setTagname(tagbean.getTagName());
             item.setUid(essaybean.getUserId());
             item.setUname(user.getUsername());
+            item.setCreateTime(essaybean.getCreateTime());
             myessay.add(item);
         }
         return myessay;
@@ -108,12 +109,16 @@ public class UserDaoImpl implements UserDao {
             if (essay==null){
                 continue;
             }
+            TagBean tagbean = mTemplate.get(TagBean.class,essay.getTagId());
             UserBean userbean=mTemplate.get(UserBean.class,essay.getUserId());
             item.setUid(userbean.getUid());
             item.setUserName(userbean.getUsername());
             item.setEid(essay.geteId());
             item.setEtitle(essay.geteTitle());
             item.setEcontent(essay.geteContent());
+            item.setCreateTime(essay.getCreateTime());
+            item.setTagid(tagbean.getTagId());
+            item.setTagname(tagbean.getTagName());
             store.add(item);
         }
         return store;

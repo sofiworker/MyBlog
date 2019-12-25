@@ -3,7 +3,7 @@
   Author: sofiworker
   Version: 1.0.0
   Date: 2019/12/8 22:10
-  Description: 编辑文章页面
+  Description: 编辑文章页面，支持markdown
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
@@ -98,6 +98,7 @@
             ,layer = layui.layer
             ,layedit = layui.layedit;
 
+
         //创建一个编辑器
         layedit.set({
             uploadImage: {
@@ -115,7 +116,10 @@
                         "eContent":layedit.getContent(editIndex),
                         "tagId":parseInt(fm_tag.tag.value)
                     }
-                };
+                }
+                console.log("11111111111111111111111111111111111111")
+                console.log(data)
+                console.log("222222222222222222222222222222")
                 $.ajax({url:"/edit",
                     type:"post",
                     dataType: "json",
@@ -124,6 +128,7 @@
                     success:function(data) {
                         console.log(data);
                     }});
+                window.location.href="Home.jsp";
                 return false;
         })
     });

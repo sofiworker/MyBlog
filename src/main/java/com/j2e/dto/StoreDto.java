@@ -3,6 +3,8 @@ package com.j2e.dto;
 
 import lombok.Data;
 
+import java.sql.Timestamp;
+
 /**
  * @author mynameexit
  * @version 1.0.0
@@ -17,4 +19,7 @@ public class StoreDto {
     private String eid;
     private String etitle;
     private String econtent;
+    private Timestamp createTime;
+    private int tagid;
+    private String tagname;
 }

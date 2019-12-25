@@ -2,6 +2,8 @@ package com.j2e.dto;
 
 import lombok.Data;
 
+import java.sql.Timestamp;
+
 /**
  * @author mynameexit
  * @version 1.0.0
@@ -20,4 +22,5 @@ public class MyEassyItemDto {
     private String uname;
     private int tagid;
     private String tagname;
+    private Timestamp createTime;
 }

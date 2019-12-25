@@ -18,9 +18,10 @@
     <link rel="stylesheet" href="layui/css/layui.css"  media="all">
     <script type="text/javascript" src="layui/layui.all.js"></script>
     <script type="text/javascript" src="layui/layui.js" charset="utf-8"></script>
+    <link rel="stylesheet" href="css/bootstrap.min.css">
 </head>
 <body>
-<div class="layui-layout layui-layout-admin" style="height: 65px;">
+<div class="layui-layout layui-layout-admin" style="height: 65px">
     <div class="layui-header" style="height: 100%">
         <div class="layui-logo" style="font-weight: bolder;">
             <h2 style="color: white">个人博客</h2>
@@ -40,6 +41,7 @@
         </ul>
     </div>
 </div>
+<div class="layui-container">
 <div class="layui-fluid">
     <div class="layui-row">
         <div class="layui-col-md12">
@@ -50,28 +52,8 @@
             </div>
             <div style="padding: 20px; background-color: #F2F2F2;">
                 <div class="layui-row layui-col-space15">
-                    <div class="layui-col-md12">
-                        <a href="">
-                            <div class="layui-card">
-                                <div class="layui-card-header">第1条帖子url</div>
-                                <span class="icon time" style="float: right"><i class="layui-icon layui-icon-log"> publishTime</i></span>
-                            </div>
-                        </a>
-                        <hr>
-                        <a href="">
-                            <div class="layui-card">
-                                <div class="layui-card-header">第2条帖子url</div>
-                                <span class="icon time" style="float: right"><i class="layui-icon layui-icon-log"> publishTime</i></span>
-                            </div>
-                        </a>
-                        <hr>
-                        <a href="">
-                            <div class="layui-card">
-                                <div class="layui-card-header">第3条帖子url</div>
-                                <span class="icon time" style="float: right"><i class="layui-icon layui-icon-log"> publishTime</i></span>
-                            </div>
-                        </a>
-                        <hr>
+                    <div class="layui-col-md12 essay">
+
                     </div>
                 </div>
             </div>
@@ -82,33 +64,14 @@
             </div>
             <div style="padding: 20px; background-color: #F2F2F2;">
                 <div class="layui-row layui-col-space15">
-                    <div class="layui-col-md12">
-                        <a href="">
-                            <div class="layui-card">
-                                <div class="layui-card-header">第1条帖子url</div>
-                                <span class="icon time" style="float: right"><i class="layui-icon layui-icon-log"> publishTime</i></span>
-                            </div>
-                        </a>
-                        <hr>
-                        <a href="">
-                            <div class="layui-card">
-                                <div class="layui-card-header">第2条帖子url</div>
-                                <span class="icon time" style="float: right"><i class="layui-icon layui-icon-log"> publishTime</i></span>
-                            </div>
-                        </a>
-                        <hr>
-                        <a href="">
-                            <div class="layui-card">
-                                <div class="layui-card-header">第3条帖子url</div>
-                                <span class="icon time" style="float: right"><i class="layui-icon layui-icon-log"> publishTime</i></span>
-                            </div>
-                        </a>
-                        <hr>
+                    <div class="layui-col-md12 store">
+
                     </div>
                 </div>
             </div>
         </div>
     </div>
+</div>
 </div>
 
 <script>
@@ -118,10 +81,72 @@
     });
 
     function loadInfo() {
-        $("#myname").val(window.sessionStorage.getItem("uid"));
-        $("#question").show();
+
+        $.ajax({url:"/myessay",
+            type:"post",
+            dataType: "json",
+            contentType:"application/json;charset=UTF-8",
+            data:JSON.stringify({}),
+            success:function(data) {
+                var text="";
+                data.data.forEach(function(item){
+                    text+='<div class="more" onclick="intoessay(`'+item.eid+'`)">'+
+                        '<div class="layui-card">'+
+                        '<div class="layui-card-header">'+item.etitle+'</div>'+
+                        '<div class="layui-card-body"><div class="layui-col-md9">&nbsp;&nbsp;&nbsp;&nbsp;'+item.econtent+
+                        '</div>' +
+                        '<div class="layui-col-md3">' +
+                        '<img style=" display:block;position:relative;margin:auto;width: 100px;height: 100px" src="http://192.168.161.1:9999/upload/f8161ce46f5d422281396b0d5629d2c3.jpg">' +
+                        '</div><div class="layui-row"><br>' +
+                        '<span class="glyphicon glyphicon-heart" style="margin: auto;color: indianred">:'+item.elike+'</span>'+
+                        '<span style="float: right;color: #00a8c6">tag:'+item.tagname+'</span></div><hr></div>'+
+                        '<span class="icon time" style="float: right"><i class="layui-icon layui-icon-log">'+
+                        String(item.createTime).replace("T"," ")+'</i></span>'+
+                        '</div></div><hr>';
+                })
+                $(".essay").html(text);
+                console.log(data);
+            },
+            error:function (error) {
+                console.log(error.statusText)
+            }
+            })
+
+        $.ajax({url:"/mystore",
+            type:"post",
+            dataType: "json",
+            contentType:"application/json;charset=UTF-8",
+            data:JSON.stringify({}),
+            success:function(data) {
+                var text="";
+                data.data.forEach(function(item){
+                    text+='<div class="more" onclick="intoessay(`'+item.eid+'`)">'+
+                        '<div class="layui-card">'+
+                        '<div class="layui-card-header">'+item.etitle+'</div>'+
+                        '<div class="layui-card-body"><div class="layui-col-md9">&nbsp;&nbsp;&nbsp;&nbsp;'+item.econtent+
+                        '</div>' +
+                        '<div class="layui-col-md3">' +
+                        '<img style=" display:block;position:relative;margin:auto;width: 100px;height: 100px" src="http://192.168.161.1:9999/upload/f8161ce46f5d422281396b0d5629d2c3.jpg">' +
+                        '</div><div class="layui-row"><br>' +
+                        '<span class="glyphicon glyphicon-user" style="margin: auto;color: #75787b">:'+item.userName+'</span>'+
+                        '<span style="float: right;color: #00a8c6">tag:'+item.tagname+'</span></div><hr></div>'+
+                        '<span class="icon time" style="float: right"><i class="layui-icon layui-icon-log">'+
+                        String(item.createTime).replace("T"," ")+'</i></span>'+
+                        '</div></div><hr>';
+                })
+                $(".store").html(text);
+                console.log(data);
+
+            },
+            error:function (error) {
+                console.log(error.statusText)
+            }
+        })
     }
     window.onload = loadInfo;
+    function intoessay(id){
+        console.log(id)
+    }
 
 </script>
 </body>
