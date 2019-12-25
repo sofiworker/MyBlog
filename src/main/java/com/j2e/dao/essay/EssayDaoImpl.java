@@ -1,6 +1,9 @@
 package com.j2e.dao.essay;
 
+import com.j2e.dto.EssayDto;
 import com.j2e.entities.EssayBean;
+import com.j2e.entities.TagBean;
+import com.j2e.entities.UserBean;
 import lombok.extern.log4j.Log4j2;
 import org.hibernate.FlushMode;
 import org.hibernate.Session;
@@ -53,5 +56,26 @@ public class EssayDaoImpl implements EssayDao {
     public void deleteEssayById(String eId) {
         EssayBean entity = template.get(EssayBean.class, eId);
         template.delete(entity);
+    }
+
+    @Override
+    public EssayDto getEssay(String str) {
+        List<EssayBean> list=(List<EssayBean>)template.find("from EssayBean where eId=?0",str);
+        EssayBean  essay=list.get(0);
+        List<UserBean> list1=(List<UserBean>) template.find("from UserBean where uid=?0",essay.getUserId());
+        UserBean user=list1.get(0);
+        System.out.println(user.getUsername());
+        List<TagBean> list2=(List<TagBean>) template.find("from TagBean where tagId=?0",essay.getTagId());
+        TagBean tag=list2.get(0);
+        EssayDto ans=new EssayDto();
+        ans.setEComment(essay.geteComment());
+        ans.setEContent(essay.geteContent());
+        ans.setEId(essay.geteId());
+        ans.setELike(essay.geteLike());
+        ans.setETitle(essay.geteTitle());
+        ans.setUserName(user.getUsername());
+        ans.setTagName(tag.getTagName());
+        ans.setCreateTime(essay.getCreateTime());
+        return ans;
     }
 }
