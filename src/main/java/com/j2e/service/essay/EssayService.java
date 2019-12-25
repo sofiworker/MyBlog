@@ -17,9 +17,9 @@ public interface EssayService {
 
     void updateEssay(EssayBean essay);
 
-    List<EssayBean> AllEssay();
+    List<EssayDto> AllEssay();
 
-    List<EssayBean> searchEssay(String str);
+    List<EssayDto> searchEssay(String str);
 
     void deleteEssayById(String eId);
 
