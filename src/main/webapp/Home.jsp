@@ -100,8 +100,8 @@
                 // console.log(obj);
                 $("#items").html("");
                 var arr = [],thisData = data.concat().splice(obj.curr*obj.limit - obj.limit, obj.limit);
-                var text="";
                 layui.each(thisData, function(index, item){
+                    var text="";
                     var content=item.eContent.split("\"");
                     var imgurl=c(content);
                     text += '<div class="more" onclick="intoessay(`' + item.eId + '`)">' +
