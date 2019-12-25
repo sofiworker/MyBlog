@@ -17,23 +17,26 @@
     <link rel="stylesheet" href="css/bootstrap.min.css">
 </head>
 <body>
-<div class="layui-layout layui-layout-admin" style="height: 65px;">
+<div class="layui-layout layui-layout-admin" style="height: 75px">
     <div class="layui-header" style="height: 100%">
         <div class="layui-logo" style="font-weight: bolder;">
-            <h2 style="color: white">个人博客</h2>
+            <h1 ><a href="Home.jsp"style="color: white;text-decoration-line: none;">个人博客</a></h1>
         </div>
-        <ul class="layui-nav layui-layout-right">
+        <ul class="layui-nav layui-layout-right" style="margin-top: 8px;">
             <li class="layui-nav-item">
-                <input type="text" name="title"  placeholder="搜索问题" class="layui-input" style="width: 200px;margin-top: 2px">
+                <form name="form">
+                    <input type="text" name="title"  placeholder="搜索问题" class="layui-input" style="width: 200px;margin-top: 2px">
+                </form>
             </li>
             <li class="layui-nav-item" style="margin-left: 20px">
-                <button type="button" class="layui-btn layui-btn-primary">搜索</button>
+                <button type="button" class="layui-btn layui-btn-primary" onclick="search()">搜索</button>
             </li>
             <li class="layui-nav-item">
                 <a id="myname" href="Mine.jsp"></a>
             </li>
             <li class="layui-nav-item" style="display: none" id="question"><a href="edit.jsp">提问</a></li>
-            <li class="layui-nav-item"><a href="../Login/login.html">退出</a></li>
+            <li class="layui-nav-item" style="display: none" id="login"><a href="login.jsp">登录</a></li>
+            <li class="layui-nav-item" style="display: none" id="logout"><a onclick="logout()">退出</a></li>
         </ul>
     </div>
 </div>
@@ -69,6 +72,18 @@
 </div>
 </div>>
 <script>
+    function logout(){
+        $.ajax({url:"/logout",
+            type:"post",
+            dataType: "json",
+            processData: false,
+            contentType: false,
+            success:function(result) {
+                window.sessionStorage.clear();
+                window.location.href="Home.jsp"
+            }
+        })
+    }
     layui.use('element', function(){
         var element = layui.element;
 
@@ -81,8 +96,15 @@
         $('.layui-breadcrumb').find('a').eq(index).addClass('layui-transfer-active');
     }
     function loadInfo() {
-        $("#myname").text(window.sessionStorage.getItem("uid"));
-        $("#question").show();
+        $("#myname").text(window.sessionStorage.getItem("username"));
+        if (window.sessionStorage.getItem("username")){
+            $("#logout").show();
+            $("#question").show();
+        }
+        else{
+            $("#login").show();
+        }
+
     }
     window.onload = loadInfo;
 
@@ -104,7 +126,7 @@
                     var text="";
                     var content=item.EContent.split("\"");
                     var imgurl=c(content);
-                    text += '<div class="more" onclick="intoessay(`' + item.EId + '`)">' +
+                    text += '<div class="more" ondblclick="intoessay(`' + item.EId + '`)">' +
                         '<div class="layui-card">' +
                         '<div class="layui-card-header" ><h2>' + item.ETitle + '</h2></div>' +
                         '<div class="layui-card-body"><div class="layui-col-md9 show">&nbsp;&nbsp;&nbsp;&nbsp;' + String(item.EContent).replace("img", "") +
@@ -157,6 +179,60 @@
 
     function intoessay(id){
         window.location.href="Answer.jsp?eid="+id;
+    }
+    function search() {
+        layui.use('laypage', function(){
+            var laypage = layui.laypage;
+            var sdata ={"str":form.title.value};
+            console.log(sdata)
+            $.ajax({url:"/SearchEssay",
+                type:"post",
+                dataType:"json",
+                contentType: "application/json",
+                data:JSON.stringify(sdata),
+                success:function(mydata) {
+                    console.log(mydata)
+                    var data =  mydata.data
+                    console.log(data)
+                    laypage.render({
+                        elem: 'demo7'
+                        ,count: data.length
+                        ,layout: ['count', 'prev', 'page', 'next', 'limit', 'refresh', 'skip']
+                        ,jump: function(obj) {
+                            // console.log(obj);
+                            $("#items").html("");
+                            var arr = [],thisData = data.concat().splice(obj.curr*obj.limit - obj.limit, obj.limit);
+                            layui.each(thisData, function(index, item){
+                                var text="";
+                                var content=item.EContent.split("\"");
+                                var imgurl=c(content);
+                                text += '<div class="more" ondblclick="intoessay(`' + item.EId + '`)">' +
+                                    '<div class="layui-card">' +
+                                    '<div class="layui-card-header" ><h2>' + item.ETitle + '</h2></div>' +
+                                    '<div class="layui-card-body"><div class="layui-col-md9 show">&nbsp;&nbsp;&nbsp;&nbsp;' + String(item.EContent).replace("img", "") +
+                                    '</div>' +
+                                    '<div class="layui-col-md3">';
+                                if (imgurl != null) {
+                                    text += '<img style=" display:block;position:relative;margin:auto;width: 100px;height: 100px" src="' + imgurl + '">';
+                                }
+                                text += '</div><div class="layui-row"><br>' +
+                                    '<span class="glyphicon glyphicon-user" style="color: #474d5b">'+item.userName+'</span>'+
+                                    '<span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>' +
+                                    '<span class="glyphicon glyphicon-heart" style="color: indianred">:' + item.ELike + '</span>' +
+                                    '<span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="glyphicon glyphicon-tasks" style="color: #5cbfcd">:' + item.tagName + '</span>' +
+                                    '<span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="glyphicon glyphicon-pencil" style="color: #3F7F7F">:' + item.EComment + '</span>' +
+                                    '</div><hr></div>' +
+                                    '<span class="icon time" style="float: right"><i class="layui-icon layui-icon-log">' +
+                                    String(item.createTime).replace("T", " ") + '</i></span>' +
+                                    '</div></div><hr>';
+                                arr.push(text);
+                            });
+                            $("#items").append(arr);
+                        }
+                    });
+                }
+            });
+        });
     }
 </script>
 </body>

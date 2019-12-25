@@ -19,12 +19,12 @@
     <script type="text/javascript" src="layui/layui.all.js"></script>
 </head>
 <body>
-<div class="layui-layout layui-layout-admin" style="height: 65px;">
+<div class="layui-layout layui-layout-admin" style="height: 75px">
     <div class="layui-header" style="height: 100%">
         <div class="layui-logo" style="font-weight: bolder;">
-            <h2 style="color: white">个人博客</h2>
+            <h1 ><a href="Home.jsp"style="color: white;text-decoration-line: none;">个人博客</a></h1>
         </div>
-        <ul class="layui-nav layui-layout-right">
+        <ul class="layui-nav layui-layout-right" style="margin-top: 8px;">
             <li class="layui-nav-item">
                 <input type="text" name="title"  placeholder="搜索问题" class="layui-input" style="width: 200px;margin-top: 2px">
             </li>
@@ -35,7 +35,8 @@
                 <a class="myname"></a>
             </li>
             <li class="layui-nav-item" style="display: none" id="question"><a href="Question.jsp">提问</a></li>
-            <li class="layui-nav-item"><a href="login.jsp">退出</a></li>
+            <li class="layui-nav-item" style="display: none" id="login"><a href="login.jsp">登录</a></li>
+            <li class="layui-nav-item" style="display: none" id="logout"><a onclick="logout()">退出</a></li>
         </ul>
     </div>
 </div>
@@ -90,7 +91,20 @@
     </div>
 </div>
 <script>
+    function logout(){
+        $.ajax({url:"/logout",
+            type:"post",
+            dataType: "json",
+            processData: false,
+            contentType: false,
+            success:function(result) {
+                window.sessionStorage.clear();
+                window.location.href="Home.jsp"
+            }
+        })
+    }
 
+    var eid=location.search.split("=")[1]
     layui.use(['form', 'layedit'], function(){
         var form = layui.form
             ,layer = layui.layer
@@ -110,10 +124,10 @@
                 "comment":{
                     "level":0,
                     "content":layedit.getContent(editIndex),
-                    "eid":"30d419e39abe4ed5bf7f9994c33b165f"//window.sessionStorage.getItem("eid")
+                    "eid":eid//window.sessionStorage.getItem("eid")
                 }
             }
-            layedit.getContent(editIndex).attr({width:"100",height:"100"});
+
             console.log(layedit.getContent(editIndex))
             $.ajax({url:"http://localhost:9999/comment",
                 type:"post",
@@ -123,7 +137,7 @@
                 success:function(result) {
                     /*console.log('111111111222222222222222211111111');
                     console.log(result);*/
-                    /*window.location.reload();*/
+                    window.location.reload();
                 }
             })
             return false;
@@ -134,7 +148,8 @@
 <script>
     var visitorCount = 0;
     $(function(){   //window.sessionStorage.getItem("eid")
-        var data= {"essayId":"30d419e39abe4ed5bf7f9994c33b165f"}
+        var eid=location.search.split("=")[1]
+        var data= {"essayId":eid}
         console.log(data)
         $.ajax({
             url:"http://localhost:9999/commentList",
@@ -155,13 +170,14 @@
                     }
                     $("#commentCount").html("<b>"+result.data.length+"条评论</b>");
                     $("#CommentContent").html(comstr);
-                    // $("#myname").html(window.sessionStorage.getItem("username"));
+                    $(".myname").html("  "+window.sessionStorage.getItem("username"));
                 }
             }
         })
     })
     $(function(){
-        var data= {"str":"30d419e39abe4ed5bf7f9994c33b165f"}
+        var eid=location.search.split("=")[1]
+        var data= {"str":eid}
         console.log(data)
         $.ajax({
             url:"http://localhost:9999/getEssay",
@@ -183,44 +199,7 @@
         })
     })
 
-    function search() {
-        layui.use('laypage', function(){
-            var laypage = layui.laypage;
-            var sdata ={"str":form.title.value};
-            console.log(sdata)
-            $.ajax({url:"http://localhost:9999/SearchEssay",
-                type:"post",
-                contentType:"application/json;charset=UTF-8",
-                data:JSON.stringify(sdata),
-                success:function(mydata) {
-                    console.log(mydata)
-                    var data =  mydata.data
-                    laypage.render({
-                        elem: 'demo7'
-                        ,count: data.length
-                        ,layout: ['count', 'prev', 'page', 'next', 'limit', 'refresh', 'skip']
-                        ,jump: function(obj) {
-                            // console.log(obj);
-                            $("#items").html("");
-                            var arr = [],thisData = data.concat().splice(obj.curr*obj.limit - obj.limit, obj.limit);
-                            layui.each(thisData, function(index, item){
-                                arr.push("<a href=\"\">\n" +
-                                    "                            <div class=\"layui-card\">\n" +
-                                    "                                 <div class=\"layui-card-header\">" + item.eTitle + "</div>\n" +
-                                    "                                <div class=\"layui-card-body\">\n" + item.eContent + "</div>\n" +
-                                    "                                <span class=\"icon time\" style=\"float: right\">" +
-                                    "                                   <i class=\"layui-icon layui-icon-log\">\n" + String(item.createTime).replace("T", " ") + "</i>" +
-                                    "                                </span>\n" +
-                                    "                            </div>\n" +
-                                    "                        </a><hr>\n");
-                            });
-                            $("#items").append(arr);
-                        }
-                    });
-                }
-            });
-        });
-    }
+
 </script>
 </body>
 </html>

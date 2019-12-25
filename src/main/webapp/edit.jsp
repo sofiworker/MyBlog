@@ -19,16 +19,16 @@
     <script type="text/javascript" src="layui/layui.all.js"></script>
 </head>
 <body>
-<div class="layui-layout layui-layout-admin" style="height: 65px;">
+<div class="layui-layout layui-layout-admin" style="height: 75px">
     <div class="layui-header" style="height: 100%">
         <div class="layui-logo" style="font-weight: bolder;">
-            <h2 style="color: white">个人博客</h2>
+            <h1 ><a href="Home.jsp"style="color: white;text-decoration-line: none;">个人博客</a></h1>
         </div>
-        <ul class="layui-nav layui-layout-right">
+        <ul class="layui-nav layui-layout-right" style="margin-top: 8px;">
             <li class="layui-nav-item">
                 <a class="myname"></a>
             </li>
-            <li class="layui-nav-item"><a href="login.jsp">退出</a></li>
+            <li class="layui-nav-item" style="display: none" id="logout"><a onclick="logout()">退出</a></li>
         </ul>
     </div>
 </div>
@@ -121,6 +121,7 @@
                     contentType:"application/json;charset=UTF-8",
                     data:JSON.stringify(data),
                     success:function(data) {
+                        window.location.href="Home.jsp"
                         console.log(data);
                     }})
                 return false;
@@ -168,6 +169,18 @@
                 }
             })
         });
+    }
+    function logout(){
+        $.ajax({url:"/logout",
+            type:"post",
+            dataType: "json",
+            processData: false,
+            contentType: false,
+            success:function(result) {
+                window.sessionStorage.clear();
+               window.location.href="Home.jsp"
+            }
+        })
     }
     window.onload = addTag;
 </script>

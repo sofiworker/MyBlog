@@ -87,7 +87,7 @@
           data:JSON.stringify(jsondata),
           success:function(data) {
             console.log('11111111111111111');
-            window.sessionStorage.setItem("uid",data.data.uid);
+            window.sessionStorage.setItem("username",data.data.username);
             console.log(data);
             console.log(data.data.uid);
             window.location.href="Home.jsp";
