@@ -102,21 +102,24 @@
                 var arr = [],thisData = data.concat().splice(obj.curr*obj.limit - obj.limit, obj.limit);
                 layui.each(thisData, function(index, item){
                     var text="";
-                    var content=item.eContent.split("\"");
+                    var content=item.EContent.split("\"");
                     var imgurl=c(content);
-                    text += '<div class="more" onclick="intoessay(`' + item.eId + '`)">' +
+                    text += '<div class="more" onclick="intoessay(`' + item.EId + '`)">' +
                         '<div class="layui-card">' +
-                        '<div class="layui-card-header" ><h2>' + item.eTitle + '</h2></div>' +
-                        '<div class="layui-card-body"><div class="layui-col-md9 show">&nbsp;&nbsp;&nbsp;&nbsp;' + String(item.eContent).replace("img", "") +
+                        '<div class="layui-card-header" ><h2>' + item.ETitle + '</h2></div>' +
+                        '<div class="layui-card-body"><div class="layui-col-md9 show">&nbsp;&nbsp;&nbsp;&nbsp;' + String(item.EContent).replace("img", "") +
                         '</div>' +
                         '<div class="layui-col-md3">';
-                    console.log(imgurl)
                     if (imgurl != null) {
                         text += '<img style=" display:block;position:relative;margin:auto;width: 100px;height: 100px" src="' + imgurl + '">';
                     }
                     text += '</div><div class="layui-row"><br>' +
-                        '<span class="glyphicon glyphicon-heart" style="margin: auto;color: indianred">:' + item.eLike + '</span>' +
-                        '<span style="float: right;color: #00a8c6">评论:' + item.eComment + '</span></div><hr></div>' +
+                        '<span class="glyphicon glyphicon-user" style="color: #474d5b">'+item.userName+'</span>'+
+                        '<span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>' +
+                        '<span class="glyphicon glyphicon-heart" style="color: indianred">:' + item.ELike + '</span>' +
+                        '<span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="glyphicon glyphicon-tasks" style="color: #5cbfcd">:' + item.tagName + '</span>' +
+                        '<span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="glyphicon glyphicon-pencil" style="color: #3F7F7F">:' + item.EComment + '</span>' +
+                        '</div><hr></div>' +
                         '<span class="icon time" style="float: right"><i class="layui-icon layui-icon-log">' +
                         String(item.createTime).replace("T", " ") + '</i></span>' +
                         '</div></div><hr>';
@@ -153,7 +156,7 @@
     }
 
     function intoessay(id){
-        console.log(id)
+        window.location.href="Answer.jsp?eid="+id;
     }
 </script>
 </body>
