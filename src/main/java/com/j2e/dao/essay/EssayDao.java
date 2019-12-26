@@ -24,4 +24,6 @@ public interface EssayDao {
     void deleteEssayById(String eId);
 
     EssayDto getEssay(String str);
+
+    EssayBean getBean(String id);
 }

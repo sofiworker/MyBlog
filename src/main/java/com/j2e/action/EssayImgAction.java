@@ -71,7 +71,7 @@ public class EssayImgAction extends ActionSupport {
         out.close();
         String uploadPath = ServletActionContext.getServletContext().getRealPath("/upload/essayImg/");
         if (!new File(uploadPath).exists()){
-            new File(uploadPath).mkdir();
+            new File(uploadPath).mkdirs();
         }
         File toFile = new File(uploadPath + File.separator + newName);
         FileImageOutputStream outputStream = new FileImageOutputStream(toFile);

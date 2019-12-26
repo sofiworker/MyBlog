@@ -109,4 +109,11 @@ public class EssayDaoImpl implements EssayDao {
         ans.setCreateTime(essay.getCreateTime());
         return ans;
     }
+
+    @Override
+    public EssayBean getBean(String id) {
+        return template.get(EssayBean.class, id);
+    }
+
+
 }

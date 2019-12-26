@@ -2,10 +2,13 @@ package com.j2e.service.comment;
 
 import com.j2e.Constants;
 import com.j2e.dao.comment.CommentDao;
+import com.j2e.dao.essay.EssayDao;
 import com.j2e.dto.CommentDto;
 import com.j2e.dto.CommentItemDto;
+import com.j2e.dto.EssayDto;
 import com.j2e.dto.UserDto;
 import com.j2e.entities.CommentBean;
+import com.j2e.entities.EssayBean;
 import com.opensymphony.xwork2.ActionContext;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -25,10 +28,12 @@ import java.util.List;
 public class CommentServiceImpl implements CommentService {
 
     private CommentDao dao;
+    private EssayDao essayDao;
 
     @Autowired
-    public CommentServiceImpl(CommentDao dao){
+    public CommentServiceImpl(CommentDao dao, EssayDao dao1){
         this.dao = dao;
+        this.essayDao = dao1;
     }
 
     @Override
@@ -40,6 +45,9 @@ public class CommentServiceImpl implements CommentService {
         bean.setCuid(getUid());
         bean.setCreateTime(new Timestamp(System.currentTimeMillis()));
         dao.saveOneComment(bean);
+        EssayBean essayBean = essayDao.getBean(dto.getEid());
+        essayBean.seteComment(essayBean.geteComment() + 1);
+        essayDao.updateEssay(essayBean);
     }
 
     @Override

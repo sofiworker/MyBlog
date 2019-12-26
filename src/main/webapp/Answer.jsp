@@ -62,12 +62,7 @@
                                     <div id="tagName"></div>
                                     <hr style="margin: 20px 0">
                                     <span id="commentCount"></span>
-                                    <div id="CommentContent"></div>
-                                    提交评论
-                                    <hr style="margin: 20px 0">
-                                    <img src="image/work.jpg" alt="" style="width: 40px;height: 40px">
-                                    <span class="myname"></span>
-                                    <hr style="margin: 20px 0">
+                                    <div id="CommentContent"></div><br>
                                     <form class="layui-form" action="">
                                         <div class="layui-form-item layui-form-text">
                                             <label class="layui-form-label">用户评论区</label>
@@ -114,7 +109,7 @@
         //创建一个编辑器
         layedit.set({
             uploadImage: {
-                url: 'http://localhost:9999/fileUpload' //接口url
+                url: 'http://localhost:9999/commentImg' //接口url
             }
         });
         var editIndex = layedit.build('myEditor');

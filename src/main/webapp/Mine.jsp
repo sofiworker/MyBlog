@@ -20,13 +20,19 @@
     <script type="text/javascript" src="layui/layui.js" charset="utf-8"></script>
     <link rel="stylesheet" href="css/bootstrap.min.css">
     <style>
-        .show{
+        #content{
             overflow: hidden;
             text-overflow: ellipsis;
             display: -webkit-box;
-            -webkit-box-orient: vertical;
             -webkit-line-clamp: 3;
         }
+         div.test
+         {
+             white-space:nowrap;
+             width:12em;
+             overflow:hidden;
+             border:1px solid #000000;
+         }
     </style>
 </head>
 <body>
@@ -118,9 +124,10 @@
                     var arr = item.econtent.split("\"");
                     var imgurl = c(arr);
                     text += '<div class="more" ondblclick="intoessay(`' + item.eid + '`)">' +
-                        '<div class="layui-card">' +
+                        '<div class="layui-card"><br>' +
                         '<div class="layui-card-header" ><h2>' + item.etitle + '</h2></div>' +
-                        '<div class="layui-card-body"><div class="layui-col-md9 show">&nbsp;&nbsp;&nbsp;&nbsp;' + String(item.econtent).replace("img", "") +
+                        '<div class="layui-card-body"><div class="layui-col-md9" id="content">&nbsp;&nbsp;&nbsp;&nbsp;' +
+                        String(item.econtent).replace("img", "").replace("<p", "").replace("/<*>/","")/*.replace(" ","").slice(0,200)+"..."*/ +
                         '</div>' +
                         '<div class="layui-col-md3">';
                     if (imgurl != null) {
@@ -130,10 +137,10 @@
                         '<span class="glyphicon glyphicon-heart" style="color: indianred">:' + item.elike + '</span>' +
                         '<span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="glyphicon glyphicon-tasks" style="color: #5cbfcd">:' + item.tagname + '</span>' +
                         '<span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="glyphicon glyphicon-pencil" style="color: #3F7F7F">:' + item.ecomment + '</span>' +
-                        '</div><hr></div>' +
+                        '</div><hr>' +
                         '<span class="icon time" style="float: right"><i class="layui-icon layui-icon-log">' +
-                        String(item.createTime).replace("T", " ") + '</i></span>' +
-                        '</div></div><hr>';
+                        String(item.createTime).replace("T", " ") + '</i></span><br>' +
+                        '</div></div></div><hr>';
                 })
                 $(".essay").html(text);
             },
@@ -167,9 +174,9 @@
                     var arr=item.econtent.split("\"");
                     var imgurl=c(arr);
                     text+='<div class="more" ondblclick="intoessay(`'+item.eid+'`)">'+
-                        '<div class="layui-card">'+
+                        '<div class="layui-card"><br>'+
                         '<div class="layui-card-header">'+item.etitle+'</div>'+
-                        '<div class="layui-card-body"><div class="layui-col-md9">&nbsp;&nbsp;&nbsp;&nbsp;'+item.econtent+
+                        '<div class="layui-card-body"><div class="layui-col-md9 "id="content">&nbsp;&nbsp;&nbsp;&nbsp;'+item.econtent.replace("img","").replace("<p", "").replace("/<*>/","")+
                         '</div>' +
                         '<div class="layui-col-md3">';
                     if (imgurl!=null){
@@ -179,7 +186,7 @@
                         '<span class="glyphicon glyphicon-user" style="margin: auto;color: #75787b">:'+item.userName+'</span>'+
                         '<span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="glyphicon glyphicon-tasks" style="color: #5cbfcd">:' + item.tagname + '</span>' +
                         '<span class="icon time" style="float: right"><i class="layui-icon layui-icon-log">'+
-                        String(item.createTime).replace("T"," ")+'</i></span>'+
+                        String(item.createTime).replace("T"," ")+'</i></span><br>'+
                         '</div></div><hr>';
                 })
                 $(".store").html(text);

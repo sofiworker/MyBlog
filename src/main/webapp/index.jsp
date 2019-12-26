@@ -16,6 +16,14 @@
     <script type="text/javascript" src="layui/layui.js"></script>
     <link rel="stylesheet" href="css/bootstrap.min.css">
 </head>
+<style>
+    #content{
+        overflow: hidden;
+        text-overflow: ellipsis;
+        display: -webkit-box;
+        -webkit-line-clamp: 3;
+    }
+</style>
 <body>
 <div class="layui-layout layui-layout-admin" style="height: 75px">
     <div class="layui-header" style="height: 100%">
@@ -127,9 +135,9 @@
                     var content=item.EContent.split("\"");
                     var imgurl=c(content);
                     text += '<div class="more" ondblclick="intoessay(`' + item.EId + '`)">' +
-                        '<div class="layui-card">' +
-                        '<div class="layui-card-header" ><h2>' + item.ETitle + '</h2></div>' +
-                        '<div class="layui-card-body"><div class="layui-col-md9 show">&nbsp;&nbsp;&nbsp;&nbsp;' + String(item.EContent).replace("img", "") +
+                        '<div class="layui-card"><br>' +
+                        '<div class="layui-card-header"><h2>' + item.ETitle + '</h2></div>' +
+                        '<div class="layui-card-body"><div class="layui-col-md9" id="content">&nbsp;&nbsp;&nbsp;&nbsp;' + String(item.EContent).replace("img","").replace("<p", "").replace("/<*>/","")+
                         '</div>' +
                         '<div class="layui-col-md3">';
                     if (imgurl != null) {
@@ -141,9 +149,9 @@
                         '<span class="glyphicon glyphicon-heart" style="color: indianred">:' + item.ELike + '</span>' +
                         '<span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="glyphicon glyphicon-tasks" style="color: #5cbfcd">:' + item.tagName + '</span>' +
                         '<span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="glyphicon glyphicon-pencil" style="color: #3F7F7F">:' + item.EComment + '</span>' +
-                        '</div><hr></div>' +
-                        '<span class="icon time" style="float: right"><i class="layui-icon layui-icon-log">' +
-                        String(item.createTime).replace("T", " ") + '</i></span>' +
+                        '</div><hr>' + '<span class="icon time" style="float: right"><i class="layui-icon layui-icon-log">' +
+                        String(item.createTime).replace("T", " ") + '</i></span><br>' +
+                        '</div>' +
                         '</div></div><hr>';
                     arr.push(text);
                 });
@@ -207,7 +215,7 @@
                                 var content=item.EContent.split("\"");
                                 var imgurl=c(content);
                                 text += '<div class="more" ondblclick="intoessay(`' + item.EId + '`)">' +
-                                    '<div class="layui-card">' +
+                                    '<div class="layui-card"><br>' +
                                     '<div class="layui-card-header" ><h2>' + item.ETitle + '</h2></div>' +
                                     '<div class="layui-card-body"><div class="layui-col-md9 show">&nbsp;&nbsp;&nbsp;&nbsp;' + String(item.EContent).replace("img", "") +
                                     '</div>' +
@@ -221,9 +229,9 @@
                                     '<span class="glyphicon glyphicon-heart" style="color: indianred">:' + item.ELike + '</span>' +
                                     '<span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="glyphicon glyphicon-tasks" style="color: #5cbfcd">:' + item.tagName + '</span>' +
                                     '<span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="glyphicon glyphicon-pencil" style="color: #3F7F7F">:' + item.EComment + '</span>' +
-                                    '</div><hr></div>' +
-                                    '<span class="icon time" style="float: right"><i class="layui-icon layui-icon-log">' +
-                                    String(item.createTime).replace("T", " ") + '</i></span>' +
+                                    '</div><hr>' +'<span class="icon time" style="float: right"><i class="layui-icon layui-icon-log">' +
+                                    String(item.createTime).replace("T", " ") + '</i></span><br></div>'
+                                     +
                                     '</div></div><hr>';
                                 arr.push(text);
                             });
