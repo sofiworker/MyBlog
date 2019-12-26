@@ -19,22 +19,16 @@
     <script type="text/javascript" src="layui/layui.all.js"></script>
 </head>
 <body>
-<div class="layui-layout layui-layout-admin" style="height: 65px;">
+<div class="layui-layout layui-layout-admin" style="height: 75px">
     <div class="layui-header" style="height: 100%">
         <div class="layui-logo" style="font-weight: bolder;">
-            <h2 style="color: white">个人博客</h2>
+            <h1 ><a href="Home.jsp"style="color: white;text-decoration-line: none;">个人博客</a></h1>
         </div>
-        <ul class="layui-nav layui-layout-right">
-            <li class="layui-nav-item">
-                <input type="text" name="title"  placeholder="搜索问题" class="layui-input" style="width: 200px;margin-top: 2px">
-            </li>
-            <li class="layui-nav-item" style="margin-left: 20px">
-                <button type="button" class="layui-btn layui-btn-primary">搜索</button>
-            </li>
+        <ul class="layui-nav layui-layout-right" style="margin-top: 8px;">
             <li class="layui-nav-item">
                 <a class="myname"></a>
             </li>
-            <li class="layui-nav-item"><a href="login.jsp">退出</a></li>
+            <li class="layui-nav-item" style="display: none" id="logout"><a onclick="logout()">退出</a></li>
         </ul>
     </div>
 </div>
@@ -102,10 +96,11 @@
         //创建一个编辑器
         layedit.set({
             uploadImage: {
-                url: 'http://localhost:9999/fileUpload' //接口url
+                url: 'http://localhost:9999/essayImg' //接口url
             }
         });
         var editIndex = layedit.build('myEditor');
+
 
         //监听提交
         form.on('submit(editor)', function(data){
@@ -126,9 +121,9 @@
                     contentType:"application/json;charset=UTF-8",
                     data:JSON.stringify(data),
                     success:function(data) {
+                        window.location.href="Home.jsp"
                         console.log(data);
-                    }});
-                window.location.href="Home.jsp";
+                    }})
                 return false;
         })
     });
@@ -160,17 +155,32 @@
                 processData: false,
                 contentType: false,
                 success:function(result) {
-                    var tagstr = '';
+                    /*console.log(result)
+                    console.log("1111111111")*/
+                    var tagstr = ''
                     tagstr += ' <option value="">'+"请选择标签"+'</option> ';
                     for (var i=0;i<result.data.length;i++){
-                        var ops = '<option value='+result.data[i].tagId+'>'+ result.data[i].tagName +'</option> ';
+                        var ops = '<option value='+result.data[i].tagId+'>'+ result.data[i].tagName +'</option> '
                         tagstr += ops
                     }
-                    $("#tag").html(tagstr);
+                    /*     console.log(tagstr)*/
+                    $("#tag").html(tagstr)
                     form.render('select');
                 }
             })
         });
+    }
+    function logout(){
+        $.ajax({url:"/logout",
+            type:"post",
+            dataType: "json",
+            processData: false,
+            contentType: false,
+            success:function(result) {
+                window.sessionStorage.clear();
+               window.location.href="Home.jsp"
+            }
+        })
     }
     window.onload = addTag;
 </script>

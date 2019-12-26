@@ -42,7 +42,7 @@ public class EssayDaoImpl implements EssayDao {
     @Override
     public List<EssayDto> AllEssay() {
         List<EssayDto> re=new ArrayList<>();
-        List<EssayBean> list=(List<EssayBean>) template.find("from EssayBean");
+        List<EssayBean> list=(List<EssayBean>) template.find("from EssayBean order by createTime desc");
         for(EssayBean essay :list){
             UserBean user=template.get(UserBean.class,essay.getUserId());
             System.out.println(user.getUsername());
@@ -64,7 +64,7 @@ public class EssayDaoImpl implements EssayDao {
     @Override
     public List<EssayDto> searchEssay(String str) {
         List<EssayDto> re=new ArrayList<>();
-        List<EssayBean> list=(List<EssayBean>) template.find("from EssayBean where eTitle like ?0 or eContent like  ?1","%"+str+"%","%"+str+"%");
+        List<EssayBean> list=(List<EssayBean>) template.find("from EssayBean where eTitle like ?0 or eContent like  ?1 order by createTime desc","%"+str+"%","%"+str+"%");
         for(EssayBean essay :list){
             UserBean user=template.get(UserBean.class,essay.getUserId());
             System.out.println(user.getUsername());

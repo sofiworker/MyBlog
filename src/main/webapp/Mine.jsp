@@ -30,12 +30,12 @@
     </style>
 </head>
 <body>
-<div class="layui-layout layui-layout-admin" style="height: 65px">
+<div class="layui-layout layui-layout-admin" style="height: 75px">
     <div class="layui-header" style="height: 100%">
         <div class="layui-logo" style="font-weight: bolder;">
-            <h2 style="color: white">个人博客</h2>
+            <h1 ><a href="Home.jsp"style="color: white;text-decoration-line: none;">个人博客</a></h1>
         </div>
-        <ul class="layui-nav layui-layout-right">
+        <ul class="layui-nav layui-layout-right" style="margin-top: 8px;">
             <li class="layui-nav-item">
                 <input type="text" name="title"  placeholder="搜索问题" class="layui-input" style="width: 200px;margin-top: 2px">
             </li>
@@ -45,8 +45,9 @@
             <li class="layui-nav-item">
                 <a id="myname"></a>
             </li>
-            <li class="layui-nav-item" style="display: none" id="question"><a href="Question.jsp">提问</a></li>
-            <li class="layui-nav-item"><a href="login.jsp">退出</a></li>
+            <li class="layui-nav-item" style="display: none" id="question"><a href="edit.jsp">提问</a></li>
+            <li class="layui-nav-item" style="display: none" id="login"><a href="login.jsp">登录</a></li>
+            <li class="layui-nav-item" style="display: none" id="logout"><a onclick="logout()">退出</a></li>
         </ul>
     </div>
 </div>
@@ -89,6 +90,14 @@
 
     });
     function loadInfo() {
+        $("#myname").text(window.sessionStorage.getItem("username"));
+        if (window.sessionStorage.getItem("username")){
+            $("#logout").show();
+            $("#question").show();
+        }
+        else{
+            $("#login").show();
+        }
         a();
         b();
     }
@@ -102,10 +111,13 @@
             data: JSON.stringify({}),
             success: function (data) {
                 var text = "";
+                if (data.msg=="未登录！"){
+                    window.location.href="Home.jsp";
+                }
                 data.data.forEach(function (item) {
                     var arr = item.econtent.split("\"");
                     var imgurl = c(arr);
-                    text += '<div class="more" onclick="intoessay(`' + item.eid + '`)">' +
+                    text += '<div class="more" ondblclick="intoessay(`' + item.eid + '`)">' +
                         '<div class="layui-card">' +
                         '<div class="layui-card-header" ><h2>' + item.etitle + '</h2></div>' +
                         '<div class="layui-card-body"><div class="layui-col-md9 show">&nbsp;&nbsp;&nbsp;&nbsp;' + String(item.econtent).replace("img", "") +
@@ -115,14 +127,15 @@
                         text += '<img style=" display:block;position:relative;margin:auto;width: 100px;height: 100px" src="' + imgurl + '">';
                     }
                     text += '</div><div class="layui-row"><br>' +
-                        '<span class="glyphicon glyphicon-heart" style="margin: auto;color: indianred">:' + item.elike + '</span>' +
-                        '<span style="float: right;color: #00a8c6">tag:' + item.tagname + '</span></div><hr></div>' +
+                        '<span class="glyphicon glyphicon-heart" style="color: indianred">:' + item.elike + '</span>' +
+                        '<span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="glyphicon glyphicon-tasks" style="color: #5cbfcd">:' + item.tagname + '</span>' +
+                        '<span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="glyphicon glyphicon-pencil" style="color: #3F7F7F">:' + item.ecomment + '</span>' +
+                        '</div><hr></div>' +
                         '<span class="icon time" style="float: right"><i class="layui-icon layui-icon-log">' +
                         String(item.createTime).replace("T", " ") + '</i></span>' +
                         '</div></div><hr>';
                 })
                 $(".essay").html(text);
-                console.log(data);
             },
             error: function (error) {
                 console.log(error.statusText)
@@ -153,7 +166,7 @@
                 data.data.forEach(function(item){
                     var arr=item.econtent.split("\"");
                     var imgurl=c(arr);
-                    text+='<div class="more" onclick="intoessay(`'+item.eid+'`)">'+
+                    text+='<div class="more" ondblclick="intoessay(`'+item.eid+'`)">'+
                         '<div class="layui-card">'+
                         '<div class="layui-card-header">'+item.etitle+'</div>'+
                         '<div class="layui-card-body"><div class="layui-col-md9">&nbsp;&nbsp;&nbsp;&nbsp;'+item.econtent+
@@ -164,14 +177,12 @@
                     }
                     text+='</div><div class="layui-row"><br>' +
                         '<span class="glyphicon glyphicon-user" style="margin: auto;color: #75787b">:'+item.userName+'</span>'+
-                        '<span style="float: right;color: #00a8c6">tag:'+item.tagname+'</span></div><hr></div>'+
+                        '<span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="glyphicon glyphicon-tasks" style="color: #5cbfcd">:' + item.tagname + '</span>' +
                         '<span class="icon time" style="float: right"><i class="layui-icon layui-icon-log">'+
                         String(item.createTime).replace("T"," ")+'</i></span>'+
                         '</div></div><hr>';
                 })
                 $(".store").html(text);
-                console.log(data);
-
             },
             error:function (error) {
                 console.log(error.statusText)
@@ -182,9 +193,20 @@
     window.onload = loadInfo;
 
     function intoessay(id){
-        console.log(id)
+        window.location.href="Answer.jsp?eid="+id;
     }
-
+    function logout(){
+        $.ajax({url:"/logout",
+            type:"post",
+            dataType: "json",
+            processData: false,
+            contentType: false,
+            success:function(result) {
+                window.sessionStorage.clear();
+                window.location.href="Home.jsp"
+            }
+        })
+    }
 </script>
 </body>
 </html>

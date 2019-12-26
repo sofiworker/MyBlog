@@ -34,6 +34,7 @@ public class SearchEssayAction extends BaseAction<List<EssayDto>> {
     @Action(value = "/SearchEssay", results = {@Result(type = "json", name = "success", params = {"root","data"}),
             @Result(type = "json", name = "error", params = {"root", "data"})})
     public String search(){
+        System.out.println(str+"1111111111111111");
         data.setData(service.searchEssay(str));
         return SUCCESS;
     }

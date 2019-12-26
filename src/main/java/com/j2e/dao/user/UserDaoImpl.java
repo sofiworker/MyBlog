@@ -74,7 +74,7 @@ public class UserDaoImpl implements UserDao {
 
     private List<MyEassyItemDto> getEssay(){
         UserDto user=(UserDto) ActionContext.getContext().getSession().get(Constants.LOGIN_USER);
-        List<EssayBean> eassylist= (List<EssayBean>) mTemplate.find("from EssayBean where userId="+user.getUid());
+        List<EssayBean> eassylist= (List<EssayBean>) mTemplate.find("from EssayBean where userId="+user.getUid()+"order by createTime desc");
         List<MyEassyItemDto> myessay =new ArrayList<>();
         for (EssayBean essaybean : eassylist){
             TagBean tagbean = mTemplate.get(TagBean.class,essaybean.getTagId());
