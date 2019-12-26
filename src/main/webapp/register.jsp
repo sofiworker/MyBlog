@@ -39,7 +39,7 @@
                 <div class="row">
                     <div class="col-sm-12">
                         <div class="signin-form">
-                            <form enctype="multipart/form-data" method="post" id="register">
+                            <form enctype="multipart/form-data" method="post" id="register" name="myform">
                                 <div class="form-group">
                                     <label for="signin_form1">账号</label>
                                     <input type="text" class="form-control" id="signin_form1"  name="uid" placeholder="请输入您的账号">
@@ -54,7 +54,7 @@
                                 </div><!--/.form-group -->
                                 <div class="form-group">
                                     <label for="signin_form4">确认密码</label>
-                                    <input type="password" class="form-control" id="signin_form4"  name="password" placeholder="确认密码">
+                                    <input type="password" class="form-control" id="signin_form4"  name="password1" placeholder="确认密码">
                                 </div><!--/.form-group -->
                                 <div class="form-group">
                                     <label for="signin_form5">性别</label>
@@ -68,7 +68,7 @@
                                     <input type="text" class="form-control"   name="type" value="0">
                                 </div><!--/.form-group -->
                                 <div class="form-group" style="display: none">
-                                    <input type="date" class="form-control"   name="createtime" id="time" value="">
+                                    <input type="date" class="form-control"   name="createTime" id="time" value="">
                                 </div><!--/.form-group -->
                             </form><!--/form -->
                             <div class="layui-upload">
@@ -114,6 +114,7 @@
     </div><!--/.container -->
 </section><!--/.signin -->
 <script>
+    var photo ="";
     layui.use('upload', function() {
         var $ = layui.jquery
             , upload = layui.upload;
@@ -129,6 +130,7 @@
                 });
             }
             , done: function (res) {
+                photo=res.data.src;
                 console.log(res)
                 //如果上传失败
                 if (res.code > 0) {
@@ -175,22 +177,35 @@
         return JSON.stringify(jsonObj);
     }
     function register(){
-        getTime()
+  /*
         var userBean  = eval("("+form2JsonString("register")+")");
-        /*console.log(userBean)*/
-        var data = {userBean}
-        /*console.log(data)*/
+        console.log(userBean)*/
+        console.log(getTime())
+        var jdata = {
+            "userBean": {
+                "uid": myform.uid.value,
+                "username": myform.username.value,
+                "password": myform.password.value,
+                "photo": photo,
+                "gender": myform.gender.value,
+                "sign": myform.sign.value,
+                "type": 0,
+                /*"createtime": getTime()*/
+            }
+        }
+
+        console.log(jdata)
         $.ajax({url:"http://localhost:9999/register",
             type:"post",
             dataType: "json",
-            processData: false,
-            contentType: false,
-            data:data,
+            contentType: "application/json",
+            data:JSON.stringify(jdata),
             success:function(data) {
                 console.log(data);
-                console.log(data.data.uid);
-            }})
-        /*window.location.href="login.jsp";*/
+                window.location.href="login.jsp";
+            }
+        })
+
     }
     function getTime() {
         var date = new Date();

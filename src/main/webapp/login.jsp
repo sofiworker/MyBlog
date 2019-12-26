@@ -87,6 +87,7 @@
           data:JSON.stringify(jsondata),
           success:function(data) {
             console.log('11111111111111111');
+            console.log(data);
             window.sessionStorage.setItem("username",data.data.username);
             console.log(data);
             console.log(data.data.uid);
