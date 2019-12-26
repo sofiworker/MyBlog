@@ -90,7 +90,7 @@
             window.sessionStorage.setItem("username",data.data.username);
             console.log(data);
             console.log(data.data.uid);
-            window.location.href="Home.jsp";
+            window.location.href="index.jsp";
         }
       })
     }

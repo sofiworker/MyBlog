@@ -33,7 +33,7 @@
 <div class="layui-layout layui-layout-admin" style="height: 75px">
     <div class="layui-header" style="height: 100%">
         <div class="layui-logo" style="font-weight: bolder;">
-            <h1 ><a href="Home.jsp"style="color: white;text-decoration-line: none;">个人博客</a></h1>
+            <h1 ><a href="index.jsp" style="color: white;text-decoration-line: none;">个人博客</a></h1>
         </div>
         <ul class="layui-nav layui-layout-right" style="margin-top: 8px;">
             <li class="layui-nav-item">
@@ -112,7 +112,7 @@
             success: function (data) {
                 var text = "";
                 if (data.msg=="未登录！"){
-                    window.location.href="Home.jsp";
+                    window.location.href="index.jsp";
                 }
                 data.data.forEach(function (item) {
                     var arr = item.econtent.split("\"");
@@ -203,7 +203,7 @@
             contentType: false,
             success:function(result) {
                 window.sessionStorage.clear();
-                window.location.href="Home.jsp"
+                window.location.href="index.jsp"
             }
         })
     }
