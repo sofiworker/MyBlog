@@ -5,4 +5,4 @@
 - [Spring](https://docs.spring.io/spring/docs/4.3.25.RELEASE/spring-framework-reference/htmlsingle/)
 - [Struts](https://struts.apache.org/getting-started/)
 - [Hibernate](http://hibernate.org/orm/documentation/5.4/)
-- [Editor.md](https://pandao.github.io/editor.md/index.html) 开源在线 Markdown 编辑器
+- [Layui](https://www.layui.com/)

@@ -24,8 +24,6 @@ public class LoginInterceptor extends AbstractInterceptor {
 
     @Override
     public String intercept(ActionInvocation invocation) throws Exception {
-        Object action = invocation.getAction();
-        log.debug(action.getClass().getSimpleName());
         UserDto user = (UserDto) ActionContext.getContext().getSession().get(Constants.LOGIN_USER);
         if (user == null) {
             ServletActionContext.getResponse().setContentType("application/json;charset=UTF-8");

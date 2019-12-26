@@ -3,19 +3,15 @@
        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
        xmlns:context="http://www.springframework.org/schema/context"
        xmlns:tx="http://www.springframework.org/schema/tx"
-       xmlns:aop="http://www.springframework.org/schema/aop"
        xsi:schemaLocation="http://www.springframework.org/schema/beans
         https://www.springframework.org/schema/beans/spring-beans.xsd
         http://www.springframework.org/schema/context
         https://www.springframework.org/schema/context/spring-context.xsd
         http://www.springframework.org/schema/tx
-        http://www.springframework.org/schema/tx/spring-tx.xsd
-        http://www.springframework.org/schema/aop
-        http://www.springframework.org/schema/aop/spring-aop.xsd">
+        http://www.springframework.org/schema/tx/spring-tx.xsd">
 
     <!-- spring启用扫描-->
     <context:component-scan base-package="com.j2e"/>
-
 
     <bean id="dataSource" class="com.mchange.v2.c3p0.ComboPooledDataSource"
           destroy-method="close">
@@ -53,10 +49,12 @@
         </tx:attributes>
     </tx:advice>
 
-    <aop:config>
-        <aop:pointcut id="pointCut"
-                      expression="execution(* com.j2e.service.*.*(..))" />
-        <aop:advisor pointcut-ref="pointCut"
-                     advice-ref="txAdvice" />
-    </aop:config>
+<!--    <aop:config>-->
+<!--    &lt;!&ndash;第一个*表示匹配任意的方法返回值，第一个..表示service包及其子包,第二个*表示匹配所有类，-->
+<!--    第三个*表示所有方法，第二个..表示类中方法的任意类型及个数&ndash;&gt;-->
+<!--        <aop:pointcut id="pointCut"-->
+<!--                      expression="execution(* com.j2e.service..*(..))" />-->
+<!--        <aop:advisor pointcut-ref="pointCut"-->
+<!--                     advice-ref="txAdvice" />-->
+<!--    </aop:config>-->
 </beans>

@@ -5,13 +5,9 @@ import com.j2e.entities.EssayBean;
 import com.j2e.entities.TagBean;
 import com.j2e.entities.UserBean;
 import lombok.extern.log4j.Log4j2;
-import org.hibernate.FlushMode;
-import org.hibernate.Session;
-import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.orm.hibernate5.HibernateTemplate;
 import org.springframework.stereotype.Repository;
-import org.springframework.transaction.annotation.Transactional;
 
 import java.util.ArrayList;
 import java.util.List;
