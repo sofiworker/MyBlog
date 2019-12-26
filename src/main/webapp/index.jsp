@@ -103,7 +103,7 @@
         });
         $('.layui-breadcrumb').find('a').eq(index).addClass('layui-transfer-active');
     }
-    function loadInfo() {
+    $(function(){
         $("#myname").text(window.sessionStorage.getItem("username"));
         if (window.sessionStorage.getItem("username")){
             $("#logout").show();
@@ -112,9 +112,7 @@
         else{
             $("#login").show();
         }
-
-    }
-    window.onload = loadInfo;
+    })
 
 </script>
 <script>
