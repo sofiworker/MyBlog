@@ -13,4 +13,5 @@ public class EssayDto {
     private String userName;
     private String tagName;
     private Timestamp createTime;
+    private String userId;
 }

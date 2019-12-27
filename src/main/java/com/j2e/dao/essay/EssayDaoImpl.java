@@ -56,6 +56,7 @@ public class EssayDaoImpl implements EssayDao {
             ans.setUserName(user.getUsername());
             ans.setTagName(tag.getTagName());
             ans.setCreateTime(essay.getCreateTime());
+            ans.setUserId(essay.getUserId());
             re.add(ans);
         }
         return re;
@@ -78,6 +79,7 @@ public class EssayDaoImpl implements EssayDao {
             ans.setUserName(user.getUsername());
             ans.setTagName(tag.getTagName());
             ans.setCreateTime(essay.getCreateTime());
+            ans.setUserId(essay.getUserId());
             re.add(ans);
         }
         return re;
@@ -107,6 +109,7 @@ public class EssayDaoImpl implements EssayDao {
         ans.setUserName(user.getUsername());
         ans.setTagName(tag.getTagName());
         ans.setCreateTime(essay.getCreateTime());
+        ans.setUserId(essay.getUserId());
         return ans;
     }
 

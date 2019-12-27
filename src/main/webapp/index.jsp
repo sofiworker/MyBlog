@@ -139,7 +139,8 @@
                         '</div>' +
                         '<div class="layui-col-md3">';
                     if (imgurl != null) {
-                        text += '<img style=" display:block;position:relative;margin:auto;width: 100px;height: 100px" src="' + imgurl + '">';
+                        // text += '<img style=" display:block;position:relative;margin:auto;width: 100px;height: 100px" src="' + imgurl + '">';
+                        text += '<img style=" display:block;position:relative;margin:auto;width: 100px;height: 100px" src=https://picsum.photos/1920/1080>';
                     }
                     text += '</div><div class="layui-row"><br>' +
                         '<span class="glyphicon glyphicon-user" style="color: #474d5b">'+item.userName+'</span>'+
