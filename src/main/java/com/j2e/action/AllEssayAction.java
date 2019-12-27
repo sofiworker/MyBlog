@@ -1,5 +1,6 @@
 package com.j2e.action;
 
+import cn.hutool.core.util.PageUtil;
 import com.j2e.dto.EssayDto;
 import com.j2e.entities.EssayBean;
 import com.j2e.service.essay.EssayService;
@@ -8,14 +9,15 @@ import org.apache.struts2.convention.annotation.Action;
 import org.apache.struts2.convention.annotation.Result;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Controller;
 
 import java.util.List;
 
-@Component
+@Controller
 @Log4j2
 public class AllEssayAction extends BaseAction<List<EssayDto>> {
 
-    private static final long serialVersionUID = 5452894593134968948L;
+    private static final long serialVersionUID = -8094575007343137422L;
     private EssayService service;
 
     @Autowired

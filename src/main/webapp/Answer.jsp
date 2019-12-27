@@ -54,6 +54,7 @@
                                     <a id="author">作者：</a>
                                     <a id="publishTime">发布时间：</a>
                                     <a id="visitors">收藏数： </a>
+                                    <a id="authorId" style="display: none"></a>
                                 </span>
                                 <hr style="margin-top: 5px;">
                                 <div class="layui-card-body">
@@ -119,11 +120,12 @@
                 "comment":{
                     "level":0,
                     "content":layedit.getContent(editIndex),
-                    "eid":eid//window.sessionStorage.getItem("eid")
+                    "eid":eid,
+                    "replayId":$("#authorId").text()//window.sessionStorage.getItem("eid")
                 }
-            }
+            };
 
-            console.log(layedit.getContent(editIndex))
+            console.log(jsondata);
             $.ajax({url:"http://localhost:9999/comment",
                 type:"post",
                 dataType: "json",
@@ -168,12 +170,12 @@
                     $(".myname").html("  "+window.sessionStorage.getItem("username"));
                 }
             }
-        })
+        });
     })
     $(function(){
-        var eid=location.search.split("=")[1]
-        var data= {"str":eid}
-        console.log(data)
+        var eid=location.search.split("=")[1];
+        var data= {"str":eid};
+        console.log(data);
         $.ajax({
             url:"http://localhost:9999/getEssay",
             type:"post",
@@ -181,13 +183,13 @@
             contentType:"application/json;charset=UTF-8",
             data:JSON.stringify(data),
             success:function(result) {
-                visitorCount++;
                 console.log('00000000000000000000000000');
                 console.log(result);
                 $("#title").html('<h2><b>'+result.data.ETitle+'</b></h2>')
                 $("#content").html(result.data.EContent)
                 $("#tagName").html('<button type="button" class="layui-btn layui-btn-normal layui-btn-sm" style="border-radius:10px">'+result.data.tagName+'</button>');
                 $("#author").append(result.data.userName +' | ');
+                $("#authorId").append(result.data.EId);
                 $("#publishTime").append((result.data.createTime).replace("T"," ") +' | ');
                 $("#visitors").append(result.data.ELike)
             }

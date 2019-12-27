@@ -13,4 +13,5 @@ public class CommentDto {
     private int level;
     private String content;
     private String eid;
+    private String replayId;
 }

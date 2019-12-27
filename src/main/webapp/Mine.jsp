@@ -48,8 +48,9 @@
             <li class="layui-nav-item" style="margin-left: 20px">
                 <button type="button" class="layui-btn layui-btn-primary">搜索</button>
             </li>
-            <li class="layui-nav-item">
+            <li class="layui-nav-item" style="position: relative">
                 <a id="myname"></a>
+                <span class="layui-badge-dot layui-bg-orange" style="position: absolute;right: 0"></span>
             </li>
             <li class="layui-nav-item" style="display: none" id="question"><a href="edit.jsp">提问</a></li>
             <li class="layui-nav-item" style="display: none" id="login"><a href="login.jsp">登录</a></li>

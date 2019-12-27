@@ -44,6 +44,7 @@ public class CommentServiceImpl implements CommentService {
         bean.setCeid(dto.getEid());
         bean.setCuid(getUid());
         bean.setCreateTime(new Timestamp(System.currentTimeMillis()));
+        bean.setReplayId(dto.getReplayId());
         dao.saveOneComment(bean);
         EssayBean essayBean = essayDao.getBean(dto.getEid());
         essayBean.seteComment(essayBean.geteComment() + 1);

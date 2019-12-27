@@ -197,9 +197,9 @@
                 contentType: "application/json",
                 data:JSON.stringify(sdata),
                 success:function(mydata) {
-                    console.log(mydata)
-                    var data =  mydata.data
-                    console.log(data)
+                    console.log(mydata);
+                    var data =  mydata.data;
+                    console.log(data);
                     laypage.render({
                         elem: 'demo7'
                         ,count: data.length

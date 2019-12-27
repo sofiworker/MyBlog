@@ -6,8 +6,8 @@ import java.sql.Timestamp;
 /**
  * @author sofiworker
  * @version 1.0.0
- * @date 2019/12/15 15:55
- * @description 评论实体
+ * @date 2019/12/27 9:44
+ * @description TODO
  */
 @Entity
 @Table(name = "comment", schema = "myblog", catalog = "")
@@ -17,6 +17,7 @@ public class CommentBean {
     private String cContent;
     private String cuid;
     private String ceid;
+    private String replayId;
     private Timestamp createTime;
 
     @Id
@@ -69,6 +70,26 @@ public class CommentBean {
         this.ceid = ceid;
     }
 
+    @Basic
+    @Column(name = "replay_id", nullable = false, length = 11)
+    public String getReplayId() {
+        return replayId;
+    }
+
+    public void setReplayId(String replayId) {
+        this.replayId = replayId;
+    }
+
+    @Basic
+    @Column(name = "create_time", nullable = false)
+    public Timestamp getCreateTime() {
+        return createTime;
+    }
+
+    public void setCreateTime(Timestamp createTime) {
+        this.createTime = createTime;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -81,6 +102,8 @@ public class CommentBean {
         if (cContent != null ? !cContent.equals(bean.cContent) : bean.cContent != null) return false;
         if (cuid != null ? !cuid.equals(bean.cuid) : bean.cuid != null) return false;
         if (ceid != null ? !ceid.equals(bean.ceid) : bean.ceid != null) return false;
+        if (replayId != null ? !replayId.equals(bean.replayId) : bean.replayId != null) return false;
+        if (createTime != null ? !createTime.equals(bean.createTime) : bean.createTime != null) return false;
 
         return true;
     }
@@ -92,16 +115,8 @@ public class CommentBean {
         result = 31 * result + (cContent != null ? cContent.hashCode() : 0);
         result = 31 * result + (cuid != null ? cuid.hashCode() : 0);
         result = 31 * result + (ceid != null ? ceid.hashCode() : 0);
+        result = 31 * result + (replayId != null ? replayId.hashCode() : 0);
+        result = 31 * result + (createTime != null ? createTime.hashCode() : 0);
         return result;
-    }
-
-    @Basic
-    @Column(name = "create_time", nullable = false)
-    public Timestamp getCreateTime() {
-        return createTime;
-    }
-
-    public void setCreateTime(Timestamp createTime) {
-        this.createTime = createTime;
     }
 }
